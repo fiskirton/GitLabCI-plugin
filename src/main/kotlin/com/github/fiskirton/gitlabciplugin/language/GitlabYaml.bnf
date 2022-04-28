@@ -1,0 +1,86 @@
+{
+  parserClass="com.github.fiskirton.gitlabciplugin.language.parser.GitlabYamlParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="GitlabYaml"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.github.fiskirton.gitlabciplugin.language.psi"
+  psiImplPackage="com.github.fiskirton.gitlabciplugin.language.impl"
+
+  elementTypeHolderClass="com.github.fiskirton.gitlabciplugin.language.psi.GitlabYamlTypes"
+  elementTypeClass="com.github.fiskirton.gitlabciplugin.language.psi.GitlabYamlElementType"
+  tokenTypeClass="com.github.fiskirton.gitlabciplugin.language.psi.GitlabYamlTokenType"
+
+  tokens=[
+      SEMI=';'
+      COLON=':'
+      EQ='='
+      LP='('
+      RP=')'
+      LB='{'
+      RB='}'
+      SUB='$'
+      DASH='-'
+      POWER='^'
+      DOT='.'
+      QUEST='?'
+
+      INT = "regexp:[0-9]+"
+      STRING = "regexp:(\"[^\"]*\")|('[^']*')"
+      UNQUOTED = "regexp:(\s+.+&)"
+      ID = "regexp:([a-zA-Z._]+-*)+"
+
+      ASSIGN = "="
+      PLUS = "+"
+      MINUS = "-"
+      BANG = "!"
+      ASTERISK = "*"
+      SLASH = "/"
+      BACK_SLASH='\'
+      LT = "<"
+      GT = ">"
+      EQ = "=="
+      NOT_EQ = "!="
+      COMMA = ","
+      SEMICOLON = ";"
+      COLON = ":"
+      LPAREN = "("
+      RPAREN = ")"
+      LBRACE = "{"
+      RBRACE = "}"
+      LBRACKET = "["
+      RBRACKET = "]"
+      NEW_LINE = "regexp:(\r|\n|\r\n)"
+      WHITE_SPACE = "regexp:(\s|\t)+"
+  ]
+
+  extends(".*block")=block
+
+
+}
+
+root ::= element *
+private element ::= !<<eof>> block {pin=2 recoverWhile=property_recover}
+private property_recover ::= !(block_start)
+
+block ::= inline_block
+ | array_list_block
+ | nested_block
+ {extraRoot=true}
+
+inline_block ::= block_start value
+array_list_block ::= block_start array_list_entry+
+nested_block ::= block_start block
+
+private block_start ::= (key COLON)
+private value ::= inline_expr | inline_array_expr | colon_separated_expr
+
+inline_array_expr ::= '[' inline_expr (',' (inline_expr | &']'))* ']' {pin(".*")=1}
+private array_list_entry ::= '-' array_element
+
+array_element ::= inline_expr | colon_separated_expr
+private colon_separated_expr ::= key ':' key
+
+inline_expr ::= STRING | INT
+key ::= ID
