@@ -1,4 +1,4 @@
-package com.gitlabci.plugin.language.pasrser.psi;
+package com.gitlabci.plugin.language.psi;
 
 import com.gitlabci.plugin.language.GitlabYamlFileType;
 import com.gitlabci.plugin.language.GitlabYamlLanguage;

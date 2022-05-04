@@ -361,6 +361,18 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // UNKNOWN
+  public static boolean unknown(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "unknown")) return false;
+    if (!nextTokenIs(b, UNKNOWN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, UNKNOWN);
+    exit_section_(b, m, UNKNOWN, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // (ID !COLON)+
   public static boolean unquoted_string(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "unquoted_string")) return false;

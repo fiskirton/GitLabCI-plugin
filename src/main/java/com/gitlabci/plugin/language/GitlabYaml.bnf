@@ -9,8 +9,8 @@
   psiImplPackage="com.gitlabci.plugin.language.impl"
 
   elementTypeHolderClass="com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes"
-  elementTypeClass="com.gitlabci.plugin.language.pasrser.psi.GitlabYamlElementType"
-  tokenTypeClass="com.gitlabci.plugin.language.pasrser.psi.GitlabYamlTokenType"
+  elementTypeClass="com.gitlabci.plugin.language.psi.GitlabYamlElementType"
+  tokenTypeClass="com.gitlabci.plugin.language.psi.GitlabYamlTokenType"
 
 }
 
@@ -35,3 +35,6 @@ sequence_item ::= DASH (literal | unquoted_string | mapping )
 colon_separated ::= ID COLON ID
 unquoted_string ::= (ID !COLON)+
 literal ::= STRING | INT
+
+//noinspection BnfUnusedRule
+unknown ::= UNKNOWN
