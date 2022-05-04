@@ -8,7 +8,7 @@ import com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes;
 
 %%
 
-%class GitlabYamlLexer
+%class GitlabYamlSyntaxHighlighterLexer
 %implements FlexLexer
 %unicode
 %function advance
@@ -20,18 +20,6 @@ import com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes;
 
 %{
 
-    private int currIndent = 0;
-    private int sequence_shift = 0;
-
-    private Stack<Integer> indents = new Stack<Integer>();
-
-    private int peek() {
-        return indents.empty() ? 0 : indents.peek();
-    }
-
-    private int pop() {
-        return indents.empty() ? 0 : indents.pop();
-    }
 %}
 
 // Whitespaces
@@ -75,7 +63,6 @@ doubleQuote = \"
 
 // Literals
 
-word = [a-z]+
 intLtr = [+-]?\d+
 stringLtr = \'[^\'\n]*\'|\"(\\.|[^\"\\\n])*\"
 identifier = (_|[a-z]|[A-Z])([_-]|[a-z]|[A-Z]|[0-9])*
@@ -84,38 +71,25 @@ non_blank = [^ \t\r\n#]
 // Comments
 comment = {hash}[^\n\r]*
 
-%state IN_BLOCK STR IN_SEQUENCE
+%state IN_UNQUOTED_STRING IN_BLOCK_START PROCESS_UNQUOTED
 
 %%
 
 <YYINITIAL> {
-      {whiteSpace} {
-          currIndent++;
-      }
-      {eol} {sequence_shift = 0; currIndent = 0;}
-      {comment} { return GitlabYamlTokenTypes.COMMENT; }
+    {whiteSpace} {return TokenType.WHITE_SPACE;}
+    {eol} {return GitlabYamlTokenTypes.EOL;}
+    {comment} {return GitlabYamlTokenTypes.COMMENT;}
 
-      {non_blank} {
-          yypushback(1);
-          if(peek() > currIndent - sequence_shift) {
-            pop();
-            sequence_shift = 0;
-            return GitlabYamlTokenTypes.DEDENT;
-          }
-          yybegin(IN_BLOCK);
-          if(peek() < currIndent - sequence_shift) {
-            indents.push(currIndent - sequence_shift);
-            return GitlabYamlTokenTypes.INDENT;
-          }
-      }
-
-}
-
-<IN_BLOCK> {
-    {dash} {whiteSpace} {identifier} {colon} {
-      yypushback(yylength());
-      yybegin(IN_SEQUENCE);
+    {identifier} {colon} {whiteSpace}+ [^'\"\[] {
+        yypushback(yylength());
+        yybegin(IN_UNQUOTED_STRING);
     }
+
+    {dash} {whiteSpace}+ [^'\"] {
+        yypushback(yylength());
+        yybegin(IN_UNQUOTED_STRING);
+    }
+
     {dash} {return GitlabYamlTokenTypes.DASH;}
     {colon} {return GitlabYamlTokenTypes.COLON;}
     {comma} {return GitlabYamlTokenTypes.COMMA;}
@@ -123,22 +97,34 @@ comment = {hash}[^\n\r]*
     {rbracket} {return GitlabYamlTokenTypes.RBRACKET;}
     {intLtr} {return GitlabYamlTokenTypes.INT;}
     {stringLtr} {return GitlabYamlTokenTypes.STRING;}
-
-    {eol} {
-      yybegin(YYINITIAL);
-      currIndent = 0;
-      return GitlabYamlTokenTypes.EOL;
-    }
     {identifier} {return GitlabYamlTokenTypes.ID;}
-    {whiteSpace} {return TokenType.WHITE_SPACE;}
-    {comment} { return GitlabYamlTokenTypes.COMMENT; }
+
 }
 
-<IN_SEQUENCE> {
-    {dash} {sequence_shift++; return GitlabYamlTokenTypes.DASH;}
-    {colon} {yybegin(IN_BLOCK); return GitlabYamlTokenTypes.COLON;}
+<IN_UNQUOTED_STRING> {
+    {dash} {return GitlabYamlTokenTypes.DASH;}
+    {identifier} {colon} {whiteSpace} {
+      yypushback(yylength());
+      yybegin(IN_BLOCK_START);
+    }
+    {whiteSpace} {return TokenType.WHITE_SPACE;}
+
+    {non_blank} {
+        yypushback(1);
+        yybegin(PROCESS_UNQUOTED);
+    }
+}
+
+<IN_BLOCK_START> {
     {identifier} {return GitlabYamlTokenTypes.ID;}
-    {whiteSpace} {sequence_shift++; return TokenType.WHITE_SPACE;}
+    {colon} {return GitlabYamlTokenTypes.COLON;}
+    {whiteSpace} {yybegin(IN_UNQUOTED_STRING); return TokenType.WHITE_SPACE;}
+}
+
+<PROCESS_UNQUOTED> {
+    {intLtr}+ {return GitlabYamlTokenTypes.INT;}
+    [^\r\n#]+ {return GitlabYamlTokenTypes.STRING;}
+    {eol} {yybegin(YYINITIAL); return GitlabYamlTokenTypes.EOL;}
 }
 
 [^] {return GitlabYamlTokenTypes.UNKNOWN;}

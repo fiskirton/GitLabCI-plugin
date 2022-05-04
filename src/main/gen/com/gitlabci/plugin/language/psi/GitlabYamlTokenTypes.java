@@ -4,8 +4,6 @@ package com.gitlabci.plugin.language.psi;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
-import com.gitlabci.plugin.language.pasrser.psi.GitlabYamlElementType;
-import com.gitlabci.plugin.language.pasrser.psi.GitlabYamlTokenType;
 import com.gitlabci.plugin.language.impl.*;
 
 public interface GitlabYamlTokenTypes {
@@ -17,6 +15,7 @@ public interface GitlabYamlTokenTypes {
   IElementType PAIR = new GitlabYamlElementType("PAIR");
   IElementType SEQUENCE = new GitlabYamlElementType("SEQUENCE");
   IElementType SEQUENCE_ITEM = new GitlabYamlElementType("SEQUENCE_ITEM");
+  IElementType UNKNOWN = new GitlabYamlElementType("UNKNOWN");
   IElementType UNQUOTED_STRING = new GitlabYamlElementType("UNQUOTED_STRING");
 
   IElementType BLOCK_CONTINUE = new GitlabYamlTokenType("BLOCK_CONTINUE");
@@ -56,6 +55,9 @@ public interface GitlabYamlTokenTypes {
       }
       else if (type == SEQUENCE_ITEM) {
         return new GitlabYamlSequenceItemImpl(node);
+      }
+      else if (type == UNKNOWN) {
+        return new GitlabYamlUnknownImpl(node);
       }
       else if (type == UNQUOTED_STRING) {
         return new GitlabYamlUnquotedStringImpl(node);

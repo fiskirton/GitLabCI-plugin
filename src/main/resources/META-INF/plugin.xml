@@ -21,6 +21,10 @@
         <lang.parserDefinition
             language="GitlabYaml"
             implementationClass="com.gitlabci.plugin.language.pasrser.GitlabYamlParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+            language="GitlabYaml"
+            implementationClass="com.gitlabci.plugin.language.highlighter.GitlabYamlSyntaxHighlighterFactory"/>
+
     </extensions>
 
     <applicationListeners>

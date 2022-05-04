@@ -1,9 +1,9 @@
 package com.gitlabci.plugin.language.pasrser;
 
 import com.gitlabci.plugin.language.GitlabYamlLanguage;
-import com.gitlabci.plugin.language.lexer.GitlabYamlFlexAdapter;
+import com.gitlabci.plugin.language.lexer.GitlabYamlLexerAdapter;
 import com.gitlabci.plugin.language.parser.GitlabYamlParser;
-import com.gitlabci.plugin.language.pasrser.psi.GitlabYamlFile;
+import com.gitlabci.plugin.language.psi.GitlabYamlFile;
 import com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.ParserDefinition;
@@ -29,7 +29,7 @@ public class GitlabYamlParserDefinition implements ParserDefinition {
 
     @Override
     public @NotNull Lexer createLexer(Project project) {
-        return new GitlabYamlFlexAdapter();
+        return new GitlabYamlLexerAdapter();
     }
 
     @NotNull
