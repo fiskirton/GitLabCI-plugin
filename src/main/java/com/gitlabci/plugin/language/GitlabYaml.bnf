@@ -1,0 +1,37 @@
+{
+  parserClass="com.gitlabci.plugin.language.parser.GitlabYamlParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="GitlabYaml"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.gitlabci.plugin.language.psi"
+  psiImplPackage="com.gitlabci.plugin.language.impl"
+
+  elementTypeHolderClass="com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes"
+  elementTypeClass="com.gitlabci.plugin.language.pasrser.psi.GitlabYamlElementType"
+  tokenTypeClass="com.gitlabci.plugin.language.pasrser.psi.GitlabYamlTokenType"
+
+}
+
+root ::= document *
+private document ::= !<<eof>> (COMMENT | mapping) {pin=2 recoverWhile=property_recover}
+private property_recover ::= !(INDENT | EOL | DEDENT | BLOCK_CONTINUE)
+
+mapping ::= (pair EOL*)*
+pair ::= inline_expr
+       | nested_block
+
+private inline_expr ::= block_start (array | literal | colon_separated | unquoted_string )
+private nested_block ::= block_start EOL INDENT (sequence | mapping) DEDENT?
+
+private block_start ::= ID COLON
+
+array ::= LBRACKET literal (COMMA (literal | & RBRACKET))* RBRACKET {pin(".*")=1}
+
+sequence ::= (sequence_item EOL?)+
+sequence_item ::= DASH (literal | unquoted_string | mapping )
+
+colon_separated ::= ID COLON ID
+unquoted_string ::= (ID !COLON)+
+literal ::= STRING | INT

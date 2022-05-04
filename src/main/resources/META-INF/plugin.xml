@@ -7,31 +7,34 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.fiskirton.gitlabciplugin.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.fiskirton.gitlabciplugin.services.MyProjectService"/>
-        <toolWindow id="Gitlab Pipeline Preview" secondary="false" icon="GitlabCIPluginIcons.PipelinePreviewAction" anchor="right"
-                    factoryClass="com.github.fiskirton.gitlabciplugin.windows.pipeline.PipelinePreviewWindowFactory"/>
+        <applicationService serviceImplementation="com.gitlabci.plugin.services.MyApplicationService"/>
+        <projectService serviceImplementation="com.gitlabci.plugin.services.MyProjectService"/>
+        <toolWindow id="Gitlab Pipeline Preview" secondary="false" icon="GitlabCIPluginIcons.GitlabYamlIcon" anchor="right"
+                    factoryClass="com.gitlabci.plugin.windows.pipeline.PipelinePreviewWindowFactory"/>
         <fileType name="Gitlab YAML File"
-                  implementationClass="com.github.fiskirton.gitlabciplugin.language.GitlabYamlFileType"
+                  implementationClass="com.gitlabci.plugin.language.GitlabYamlFileType"
                   fieldName="INSTANCE"
                   language="GitlabYaml"
                   extensions="gitlab-ci.yml"
                   patterns="*.gitlab-ci*"
         />
+        <lang.parserDefinition
+            language="GitlabYaml"
+            implementationClass="com.gitlabci.plugin.language.pasrser.GitlabYamlParserDefinition"/>
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.fiskirton.gitlabciplugin.listeners.MyProjectManagerListener"
+        <listener class="com.gitlabci.plugin.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
     <actions>
-        <group id="com.github.fiskirton.gitlabciplugin.groups.ContinuousIntegrationToolbar"
-               class="com.github.fiskirton.gitlabciplugin.groups.ContinuousIntegrationToolbar"
+        <group id="com.gitlabci.plugin.groups.ContinuousIntegrationToolbar"
+               class="com.gitlabci.plugin.groups.ContinuousIntegrationToolbar"
                text="Continuous Integration Toolbar" description="Continuous integration toolbar">
             <add-to-group group-id="NavBarToolBar" anchor="first"/>
             <separator/>
-            <action class="com.github.fiskirton.gitlabciplugin.actions.PipelinePreviewAction" id="org.intellij.sdk.action.GroupPopDialogAction"
-                    text="Gitlab-CI Pipeline Preview" description="Show gitlab-CI pipeline preview" icon="GitlabCIPluginIcons.PipelinePreviewAction">
+            <action class="com.gitlabci.plugin.actions.PipelinePreviewAction" id="org.intellij.sdk.action.GroupPopDialogAction"
+                    text="Gitlab-CI Pipeline Preview" description="Show gitlab-CI pipeline preview" icon="GitlabCIPluginIcons.GitlabYamlIcon">
             </action>
             <separator/>
         </group>
