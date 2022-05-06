@@ -24,6 +24,8 @@
         <lang.syntaxHighlighterFactory
             language="GitlabYaml"
             implementationClass="com.gitlabci.plugin.language.highlighter.GitlabYamlSyntaxHighlighterFactory"/>
+        <colorSettingsPage
+            implementation="com.gitlabci.plugin.language.highlighter.GitlabYamlColorSettingsPage"/>
 
     </extensions>
 
