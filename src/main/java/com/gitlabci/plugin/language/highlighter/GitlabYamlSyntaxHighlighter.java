@@ -19,8 +19,6 @@ public class GitlabYamlSyntaxHighlighter extends SyntaxHighlighterBase implement
     private static final Map<IElementType, TextAttributesKey> ATTRIBUTES = new HashMap<>();
 
     static {
-        ATTRIBUTES.put(COLON_SEPARATED, GitlabYamlHighlighter.STRING);
-        ATTRIBUTES.put(UNQUOTED_STRING, GitlabYamlHighlighter.STRING);
         ATTRIBUTES.put(STRING, GitlabYamlHighlighter.STRING);
         ATTRIBUTES.put(COLON, GitlabYamlHighlighter.SIGN);
         ATTRIBUTES.put(COMMA, GitlabYamlHighlighter.SIGN);
