@@ -1,10 +1,10 @@
 package com.gitlabci.plugin.language.lexer;
 
-import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.TokenType;
 import java.util.Stack;
 import com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes;
+import com.intellij.lexer.FlexLexer;
 
 %%
 
@@ -21,7 +21,7 @@ import com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes;
 %{
 
     private int currIndent = 0;
-    private int sequence_shift = 0;
+    private int sequenceShift = 0;
 
     private Stack<Integer> indents = new Stack<Integer>();
 
@@ -92,19 +92,19 @@ comment = {hash}[^\n\r]*
       {whiteSpace} {
           currIndent++;
       }
-      {eol} {sequence_shift = 0; currIndent = 0;}
+      {eol} {sequenceShift = 0; currIndent = 0;}
       {comment} { return GitlabYamlTokenTypes.COMMENT; }
 
       {non_blank} {
           yypushback(1);
-          if(peek() > currIndent - sequence_shift) {
+          if((peek() > currIndent - sequenceShift) && (peek() > currIndent)) {
             pop();
-            sequence_shift = 0;
+            sequenceShift = 0;
             return GitlabYamlTokenTypes.DEDENT;
           }
           yybegin(IN_BLOCK);
-          if(peek() < currIndent - sequence_shift) {
-            indents.push(currIndent - sequence_shift);
+          if((peek() < currIndent - sequenceShift) && (peek() < currIndent)) {
+            indents.push(currIndent - sequenceShift);
             return GitlabYamlTokenTypes.INDENT;
           }
       }
@@ -113,6 +113,7 @@ comment = {hash}[^\n\r]*
 
 <IN_BLOCK> {
     {dash} {whiteSpace} {identifier} {colon} {
+      sequenceShift = 0;
       yypushback(yylength());
       yybegin(IN_SEQUENCE);
     }
@@ -135,10 +136,13 @@ comment = {hash}[^\n\r]*
 }
 
 <IN_SEQUENCE> {
-    {dash} {sequence_shift++; return GitlabYamlTokenTypes.DASH;}
-    {colon} {yybegin(IN_BLOCK); return GitlabYamlTokenTypes.COLON;}
+    {dash} {sequenceShift++; return GitlabYamlTokenTypes.DASH;}
+    {colon} {
+          System.out.println("Current shift: " + sequenceShift + " Current Indent: " + peek());
+          yybegin(IN_BLOCK); return GitlabYamlTokenTypes.COLON;
+      }
     {identifier} {return GitlabYamlTokenTypes.ID;}
-    {whiteSpace} {sequence_shift++; return TokenType.WHITE_SPACE;}
+    {whiteSpace} {sequenceShift++; return TokenType.WHITE_SPACE;}
 }
 
 [^] {return GitlabYamlTokenTypes.UNKNOWN;}

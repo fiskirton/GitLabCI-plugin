@@ -5,9 +5,8 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface GitlabYamlNestedMapping extends GitlabYamlMapping {
+public interface GitlabYamlIdentifier extends PsiElement {
 
-  @NotNull
-  List<GitlabYamlPair> getPairList();
+  String getText();
 
 }

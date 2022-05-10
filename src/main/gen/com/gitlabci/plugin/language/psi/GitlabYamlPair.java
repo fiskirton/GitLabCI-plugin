@@ -13,6 +13,9 @@ public interface GitlabYamlPair extends PsiElement {
   @Nullable
   GitlabYamlColonSeparated getColonSeparated();
 
+  @NotNull
+  GitlabYamlIdentifier getIdentifier();
+
   @Nullable
   GitlabYamlLiteral getLiteral();
 

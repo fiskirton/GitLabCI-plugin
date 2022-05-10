@@ -1,8 +1,10 @@
 package com.gitlabci.plugin.actions
 
-import com.gitlabci.plugin.windows.pipeline.PipelinePreviewWindowFactory
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.CommonDataKeys
+import com.intellij.psi.PsiFile
+
 
 class PipelinePreviewAction : AnAction() {
     override fun update(e: AnActionEvent) {

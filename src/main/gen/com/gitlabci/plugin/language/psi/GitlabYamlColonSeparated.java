@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface GitlabYamlColonSeparated extends PsiElement {
 
+  @NotNull
+  List<GitlabYamlIdentifier> getIdentifierList();
+
 }

@@ -12,6 +12,6 @@ public class GitlabYamlTokenType extends IElementType {
     }
 
     public String toString() {
-        return "GitlabKeywordTokenType." + super.toString();
+        return super.toString();
     }
 }

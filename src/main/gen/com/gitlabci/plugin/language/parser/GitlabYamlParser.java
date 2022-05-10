@@ -4,7 +4,7 @@ package com.gitlabci.plugin.language.parser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
 import static com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes.*;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
+import static com.gitlabci.plugin.language.parser.GitlabYamlParserUtil.*;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.tree.TokenSet;
@@ -96,31 +96,34 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ID COLON
+  // identifier COLON
   static boolean block_start(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "block_start")) return false;
     if (!nextTokenIs(b, ID)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, ID, COLON);
+    r = identifier(b, l + 1);
+    r = r && consumeToken(b, COLON);
     exit_section_(b, m, null, r);
     return r;
   }
 
   /* ********************************************************** */
-  // ID COLON ID
+  // identifier COLON identifier
   public static boolean colon_separated(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "colon_separated")) return false;
     if (!nextTokenIs(b, ID)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, ID, COLON, ID);
+    r = identifier(b, l + 1);
+    r = r && consumeToken(b, COLON);
+    r = r && identifier(b, l + 1);
     exit_section_(b, m, COLON_SEPARATED, r);
     return r;
   }
 
   /* ********************************************************** */
-  // !<<eof>> (COMMENT | mapping)
+  // !<<eof>> (COMMENT | top_level_mapping)
   static boolean document(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "document")) return false;
     boolean r;
@@ -141,17 +144,35 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // COMMENT | mapping
+  // COMMENT | top_level_mapping
   private static boolean document_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "document_1")) return false;
     boolean r;
     r = consumeToken(b, COMMENT);
-    if (!r) r = mapping(b, l + 1);
+    if (!r) r = top_level_mapping(b, l + 1);
     return r;
   }
 
   /* ********************************************************** */
-  // block_start (array | literal | colon_separated | unquoted_string )
+  // ID
+  public static boolean identifier(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "identifier")) return false;
+    if (!nextTokenIs(b, ID)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ID);
+    exit_section_(b, m, IDENTIFIER, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // block_start
+  static boolean incomplete_pair(PsiBuilder b, int l) {
+    return block_start(b, l + 1);
+  }
+
+  /* ********************************************************** */
+  // block_start (array | literal | colon_separated | unquoted_string)
   static boolean inline_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "inline_expr")) return false;
     if (!nextTokenIs(b, ID)) return false;
@@ -255,8 +276,15 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // UNKNOWN
+  static boolean not_used(PsiBuilder b, int l) {
+    return consumeToken(b, UNKNOWN);
+  }
+
+  /* ********************************************************** */
   // inline_expr
   //        | nested_block
+  //        | incomplete_pair
   public static boolean pair(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "pair")) return false;
     if (!nextTokenIs(b, ID)) return false;
@@ -264,12 +292,13 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = inline_expr(b, l + 1);
     if (!r) r = nested_block(b, l + 1);
+    if (!r) r = incomplete_pair(b, l + 1);
     exit_section_(b, m, PAIR, r);
     return r;
   }
 
   /* ********************************************************** */
-  // !(INDENT | EOL | DEDENT | BLOCK_CONTINUE)
+  // !(INDENT | EOL | DEDENT )
   static boolean property_recover(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property_recover")) return false;
     boolean r;
@@ -279,14 +308,13 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // INDENT | EOL | DEDENT | BLOCK_CONTINUE
+  // INDENT | EOL | DEDENT
   private static boolean property_recover_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property_recover_0")) return false;
     boolean r;
     r = consumeToken(b, INDENT);
     if (!r) r = consumeToken(b, EOL);
     if (!r) r = consumeToken(b, DEDENT);
-    if (!r) r = consumeToken(b, BLOCK_CONTINUE);
     return r;
   }
 
@@ -361,19 +389,18 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // UNKNOWN
-  public static boolean unknown(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "unknown")) return false;
-    if (!nextTokenIs(b, UNKNOWN)) return false;
+  // mapping
+  public static boolean top_level_mapping(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "top_level_mapping")) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, UNKNOWN);
-    exit_section_(b, m, UNKNOWN, r);
+    Marker m = enter_section_(b, l, _NONE_, TOP_LEVEL_MAPPING, "<top level mapping>");
+    r = mapping(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   /* ********************************************************** */
-  // (ID !COLON)+
+  // (identifier !COLON)+
   public static boolean unquoted_string(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "unquoted_string")) return false;
     if (!nextTokenIs(b, ID)) return false;
@@ -389,12 +416,12 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // ID !COLON
+  // identifier !COLON
   private static boolean unquoted_string_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "unquoted_string_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, ID);
+    r = identifier(b, l + 1);
     r = r && unquoted_string_0_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
