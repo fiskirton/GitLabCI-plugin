@@ -1,40 +1,47 @@
 {
   parserClass="com.gitlabci.plugin.language.parser.GitlabYamlParser"
+  parserUtilClass="com.gitlabci.plugin.language.parser.GitlabYamlParserUtil"
 
   extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
   psiClassPrefix="GitlabYaml"
   psiImplClassSuffix="Impl"
   psiPackage="com.gitlabci.plugin.language.psi"
-  psiImplPackage="com.gitlabci.plugin.language.impl"
+  psiImplPackage="com.gitlabci.plugin.language.psi.impl"
 
   elementTypeHolderClass="com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes"
   elementTypeClass="com.gitlabci.plugin.language.psi.GitlabYamlElementType"
   tokenTypeClass="com.gitlabci.plugin.language.psi.GitlabYamlTokenType"
 
+  psiImplUtilClass="com.gitlabci.plugin.language.psi.impl.GitlabYamlPsiImplUtil"
 }
 
 root ::= document *
-private document ::= !<<eof>> (COMMENT | mapping) {pin=2 recoverWhile=property_recover}
-private property_recover ::= !(INDENT | EOL | DEDENT | BLOCK_CONTINUE)
+private document ::= !<<eof>> (COMMENT | top_level_mapping) {pin=2 recoverWhile=property_recover}
+private property_recover ::= !(INDENT | EOL | DEDENT )
 
+top_level_mapping ::= mapping
 mapping ::= (pair EOL*)*
 pair ::= inline_expr
        | nested_block
+       | incomplete_pair
 
-private inline_expr ::= block_start (array | literal | colon_separated | unquoted_string )
+private incomplete_pair ::= block_start
+private inline_expr ::= block_start (array | literal | colon_separated | unquoted_string)
 private nested_block ::= block_start EOL INDENT (sequence | mapping) DEDENT?
 
-private block_start ::= ID COLON
+private block_start ::= identifier COLON
 
 array ::= LBRACKET literal (COMMA (literal | & RBRACKET))* RBRACKET {pin(".*")=1}
 
 sequence ::= (sequence_item EOL?)+
 sequence_item ::= DASH (literal | unquoted_string | mapping )
 
-colon_separated ::= ID COLON ID
-unquoted_string ::= (ID !COLON)+
+colon_separated ::= identifier COLON identifier
+unquoted_string ::= (identifier !COLON)+
 literal ::= STRING | INT
 
+identifier ::= ID {methods=[ getText ]}
+
 //noinspection BnfUnusedRule
-unknown ::= UNKNOWN
+private not_used ::= UNKNOWN

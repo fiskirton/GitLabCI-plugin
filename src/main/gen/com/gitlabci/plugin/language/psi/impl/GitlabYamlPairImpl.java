@@ -1,5 +1,5 @@
 // This is a generated file. Not intended for manual editing.
-package com.gitlabci.plugin.language.impl;
+package com.gitlabci.plugin.language.psi.impl;
 
 import java.util.List;
 import org.jetbrains.annotations.*;
@@ -37,6 +37,12 @@ public class GitlabYamlPairImpl extends ASTWrapperPsiElement implements GitlabYa
   @Nullable
   public GitlabYamlColonSeparated getColonSeparated() {
     return findChildByClass(GitlabYamlColonSeparated.class);
+  }
+
+  @Override
+  @NotNull
+  public GitlabYamlIdentifier getIdentifier() {
+    return findNotNullChildByClass(GitlabYamlIdentifier.class);
   }
 
   @Override

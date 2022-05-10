@@ -1,5 +1,5 @@
 // This is a generated file. Not intended for manual editing.
-package com.gitlabci.plugin.language.impl;
+package com.gitlabci.plugin.language.psi.impl;
 
 import java.util.List;
 import org.jetbrains.annotations.*;
@@ -11,14 +11,14 @@ import static com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.gitlabci.plugin.language.psi.*;
 
-public class GitlabYamlUnknownImpl extends ASTWrapperPsiElement implements GitlabYamlUnknown {
+public class GitlabYamlLiteralImpl extends ASTWrapperPsiElement implements GitlabYamlLiteral {
 
-  public GitlabYamlUnknownImpl(@NotNull ASTNode node) {
+  public GitlabYamlLiteralImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull GitlabYamlVisitor visitor) {
-    visitor.visitUnknown(this);
+    visitor.visitLiteral(this);
   }
 
   @Override

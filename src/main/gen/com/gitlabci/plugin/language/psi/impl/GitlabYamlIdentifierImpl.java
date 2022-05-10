@@ -1,5 +1,5 @@
 // This is a generated file. Not intended for manual editing.
-package com.gitlabci.plugin.language.impl;
+package com.gitlabci.plugin.language.psi.impl;
 
 import java.util.List;
 import org.jetbrains.annotations.*;
@@ -11,20 +11,25 @@ import static com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.gitlabci.plugin.language.psi.*;
 
-public class GitlabYamlColonSeparatedImpl extends ASTWrapperPsiElement implements GitlabYamlColonSeparated {
+public class GitlabYamlIdentifierImpl extends ASTWrapperPsiElement implements GitlabYamlIdentifier {
 
-  public GitlabYamlColonSeparatedImpl(@NotNull ASTNode node) {
+  public GitlabYamlIdentifierImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull GitlabYamlVisitor visitor) {
-    visitor.visitColonSeparated(this);
+    visitor.visitIdentifier(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof GitlabYamlVisitor) accept((GitlabYamlVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  public String getText() {
+    return GitlabYamlPsiImplUtil.getText(this);
   }
 
 }

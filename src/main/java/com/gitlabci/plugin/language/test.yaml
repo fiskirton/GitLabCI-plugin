@@ -1,9 +1,2 @@
-test: test
-
-include:
-  - project: 'my-group/my-project'
-    ref: main
-    file:
-      - '/templates/.builds.yml'
-      - '/templates/.tests.yml'
-  when: on_success
+test:
+  test:

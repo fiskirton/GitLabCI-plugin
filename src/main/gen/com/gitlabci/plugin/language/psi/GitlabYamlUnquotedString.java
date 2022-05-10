@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface GitlabYamlUnquotedString extends PsiElement {
 
+  @NotNull
+  List<GitlabYamlIdentifier> getIdentifierList();
+
 }

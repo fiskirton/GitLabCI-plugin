@@ -1,6 +1,6 @@
 package com.gitlabci.plugin.language;
 
-import icons.GitlabCIPluginIcons;
+import icons.GitlabYamlPluginIcons;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -36,7 +36,7 @@ public class GitlabYamlFileType extends LanguageFileType {
     @Nullable
     @Override
     public Icon getIcon() {
-        return GitlabCIPluginIcons.GitlabYamlIcon;
+        return GitlabYamlPluginIcons.GitlabYamlIcon;
     }
 
 }

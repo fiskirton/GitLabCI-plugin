@@ -2,11 +2,11 @@
 
 package com.gitlabci.plugin.language.lexer;
 
-import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.TokenType;
 import java.util.Stack;
 import com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes;
+import com.intellij.lexer.FlexLexer;
 
 
 /**
@@ -245,7 +245,7 @@ class GitlabYamlLexer implements FlexLexer {
   /* user code: */
 
     private int currIndent = 0;
-    private int sequence_shift = 0;
+    private int sequenceShift = 0;
 
     private Stack<Integer> indents = new Stack<Integer>();
 
@@ -517,21 +517,21 @@ class GitlabYamlLexer implements FlexLexer {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
             { yypushback(1);
-          if(peek() > currIndent - sequence_shift) {
+          if((peek() > currIndent - sequenceShift) && (peek() > currIndent)) {
             pop();
-            sequence_shift = 0;
+            sequenceShift = 0;
             return GitlabYamlTokenTypes.DEDENT;
           }
           yybegin(IN_BLOCK);
-          if(peek() < currIndent - sequence_shift) {
-            indents.push(currIndent - sequence_shift);
+          if((peek() < currIndent - sequenceShift) && (peek() < currIndent)) {
+            indents.push(currIndent - sequenceShift);
             return GitlabYamlTokenTypes.INDENT;
           }
             } 
             // fall through
           case 20: break;
           case 2: 
-            { sequence_shift = 0; currIndent = 0;
+            { sequenceShift = 0; currIndent = 0;
             } 
             // fall through
           case 21: break;
@@ -598,17 +598,18 @@ class GitlabYamlLexer implements FlexLexer {
             // fall through
           case 33: break;
           case 15: 
-            { sequence_shift++; return TokenType.WHITE_SPACE;
+            { sequenceShift++; return TokenType.WHITE_SPACE;
             } 
             // fall through
           case 34: break;
           case 16: 
-            { sequence_shift++; return GitlabYamlTokenTypes.DASH;
+            { sequenceShift++; return GitlabYamlTokenTypes.DASH;
             } 
             // fall through
           case 35: break;
           case 17: 
-            { yybegin(IN_BLOCK); return GitlabYamlTokenTypes.COLON;
+            { System.out.println("Current shift: " + sequenceShift + " Current Indent: " + peek());
+          yybegin(IN_BLOCK); return GitlabYamlTokenTypes.COLON;
             } 
             // fall through
           case 36: break;
@@ -618,7 +619,8 @@ class GitlabYamlLexer implements FlexLexer {
             // fall through
           case 37: break;
           case 19: 
-            { yypushback(yylength());
+            { sequenceShift = 0;
+      yypushback(yylength());
       yybegin(IN_SEQUENCE);
             } 
             // fall through
