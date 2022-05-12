@@ -5,12 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface GitlabYamlSequence extends PsiElement {
-
-  @NotNull
-  List<GitlabYamlEndOfLine> getEndOfLineList();
-
-  @NotNull
-  List<GitlabYamlSequenceItem> getSequenceItemList();
+public interface GitlabYamlEndOfLine extends PsiElement {
 
 }

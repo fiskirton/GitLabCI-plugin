@@ -29,6 +29,12 @@ public class GitlabYamlSequenceImpl extends ASTWrapperPsiElement implements Gitl
 
   @Override
   @NotNull
+  public List<GitlabYamlEndOfLine> getEndOfLineList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, GitlabYamlEndOfLine.class);
+  }
+
+  @Override
+  @NotNull
   public List<GitlabYamlSequenceItem> getSequenceItemList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, GitlabYamlSequenceItem.class);
   }

@@ -9,7 +9,9 @@ import com.gitlabci.plugin.language.psi.impl.*;
 public interface GitlabYamlTokenTypes {
 
   IElementType ARRAY = new GitlabYamlElementType("ARRAY");
+  IElementType BLOCK_END = new GitlabYamlElementType("BLOCK_END");
   IElementType COLON_SEPARATED = new GitlabYamlElementType("COLON_SEPARATED");
+  IElementType END_OF_LINE = new GitlabYamlElementType("END_OF_LINE");
   IElementType IDENTIFIER = new GitlabYamlElementType("IDENTIFIER");
   IElementType LITERAL = new GitlabYamlElementType("LITERAL");
   IElementType MAPPING = new GitlabYamlElementType("MAPPING");
@@ -39,8 +41,14 @@ public interface GitlabYamlTokenTypes {
       if (type == ARRAY) {
         return new GitlabYamlArrayImpl(node);
       }
+      else if (type == BLOCK_END) {
+        return new GitlabYamlBlockEndImpl(node);
+      }
       else if (type == COLON_SEPARATED) {
         return new GitlabYamlColonSeparatedImpl(node);
+      }
+      else if (type == END_OF_LINE) {
+        return new GitlabYamlEndOfLineImpl(node);
       }
       else if (type == IDENTIFIER) {
         return new GitlabYamlIdentifierImpl(node);

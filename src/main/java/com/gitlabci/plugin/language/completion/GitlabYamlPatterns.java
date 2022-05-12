@@ -17,7 +17,7 @@ public class GitlabYamlPatterns {
                                             .withChild(psiElement(GitlabYamlIdentifier.class)))),
                             psiElement()
                                     .afterLeaf(psiElement(GitlabYamlTokenTypes.DEDENT)
-                                    .withSuperParent(3, psiElement(GitlabYamlPair.class)
+                                    .withSuperParent(4, psiElement(GitlabYamlPair.class)
                                             .withChild(psiElement(GitlabYamlIdentifier.class)))),
                             psiElement()
                                     .afterLeaf(psiElement(GitlabYamlTokenTypes.DASH)
@@ -26,7 +26,7 @@ public class GitlabYamlPatterns {
                                                     .withChild(psiElement(GitlabYamlIdentifier.class))))),
                             psiElement()
                                     .afterLeaf(psiElement(GitlabYamlTokenTypes.EOL)
-                                    .withSuperParent(2, psiElement(GitlabYamlPair.class)
+                                    .withSuperParent(3, psiElement(GitlabYamlPair.class)
                                             .withChild(psiElement(GitlabYamlIdentifier.class)))),
                             psiElement()
                                     .afterLeaf(psiElement(GitlabYamlTokenTypes.COLON)
@@ -34,7 +34,7 @@ public class GitlabYamlPatterns {
                                             .withChild(psiElement(GitlabYamlIdentifier.class)))),
                             psiElement()
                                     .afterLeaf(psiElement(GitlabYamlTokenTypes.EOL)
-                                    .withSuperParent(3, psiElement(GitlabYamlSequence.class)
+                                    .withSuperParent(4, psiElement(GitlabYamlSequence.class)
                                             .withParent(psiElement(GitlabYamlPair.class)
                                                     .withChild(psiElement(GitlabYamlIdentifier.class)))))
 
@@ -60,7 +60,7 @@ public class GitlabYamlPatterns {
 
         public static PossibleInputsPattern afterDedentPossibleInputsPattern = (keyword) ->
                 psiElement().afterLeaf(psiElement(GitlabYamlTokenTypes.DEDENT)
-                        .withSuperParent(3, psiElement(GitlabYamlPair.class)
+                        .withSuperParent(4, psiElement(GitlabYamlPair.class)
                                 .withChild(psiElement(GitlabYamlIdentifier.class)
                                         .withText(keyword)
                                 )
@@ -71,12 +71,13 @@ public class GitlabYamlPatterns {
         public static PossibleInputsPattern afterPairPossibleInputsPattern = (keyword) ->
                 psiElement()
                         .afterLeaf(psiElement(GitlabYamlTokenTypes.EOL)
-                                .withSuperParent(2, psiElement(GitlabYamlPair.class)
+                                .withSuperParent(3, psiElement(GitlabYamlPair.class)
                                         .withChild(psiElement(GitlabYamlIdentifier.class)
                                                 .withText(keyword)
                                         )
                                 )
                         );
+
         public static PossibleInputsPattern startMultiplePossibleInputsPattern = (keyword) ->
                 psiElement().afterLeaf(psiElement(GitlabYamlTokenTypes.DASH)
                         .withSuperParent(2, psiElement(GitlabYamlSequence.class)
@@ -89,7 +90,7 @@ public class GitlabYamlPatterns {
                 );
         public static PossibleInputsPattern continueMultiplePossibleInputsPattern = (keyword) ->
                 psiElement().afterLeaf(psiElement(GitlabYamlTokenTypes.EOL)
-                        .withSuperParent(3, psiElement(GitlabYamlSequence.class)
+                        .withSuperParent(4, psiElement(GitlabYamlSequence.class)
                                 .withParent(psiElement(GitlabYamlPair.class)
                                         .withChild(psiElement(GitlabYamlIdentifier.class)
                                                 .withText(keyword)

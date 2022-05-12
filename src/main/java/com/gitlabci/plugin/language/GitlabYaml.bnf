@@ -18,23 +18,23 @@
 
 root ::= document *
 private document ::= !<<eof>> (COMMENT | top_level_mapping) {pin=2 recoverWhile=property_recover}
-private property_recover ::= !(INDENT | EOL | DEDENT )
+private property_recover ::= !(INDENT | end_of_line | block_end )
 
 top_level_mapping ::= mapping
-mapping ::= (pair EOL*)*
+mapping ::= (pair end_of_line*)*
 pair ::= inline_expr
        | nested_block
        | incomplete_pair
 
 private incomplete_pair ::= block_start
 private inline_expr ::= block_start (array | literal | colon_separated | unquoted_string)
-private nested_block ::= block_start EOL INDENT (sequence | mapping) DEDENT?
+private nested_block ::= block_start end_of_line INDENT (sequence | mapping) block_end?
 
 private block_start ::= identifier COLON
 
 array ::= LBRACKET literal (COMMA (literal | & RBRACKET))* RBRACKET {pin(".*")=1}
 
-sequence ::= (sequence_item EOL?)+
+sequence ::= (sequence_item end_of_line?)+
 sequence_item ::= DASH (literal | unquoted_string | mapping )
 
 colon_separated ::= identifier COLON identifier
@@ -42,6 +42,8 @@ unquoted_string ::= (identifier !COLON)+
 literal ::= STRING | INT
 
 identifier ::= ID {methods=[ getText ]}
+block_end ::= DEDENT
+end_of_line ::= EOL
 
 //noinspection BnfUnusedRule
 private not_used ::= UNKNOWN

@@ -11,32 +11,20 @@ import static com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.gitlabci.plugin.language.psi.*;
 
-public class GitlabYamlMappingImpl extends ASTWrapperPsiElement implements GitlabYamlMapping {
+public class GitlabYamlBlockEndImpl extends ASTWrapperPsiElement implements GitlabYamlBlockEnd {
 
-  public GitlabYamlMappingImpl(@NotNull ASTNode node) {
+  public GitlabYamlBlockEndImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull GitlabYamlVisitor visitor) {
-    visitor.visitMapping(this);
+    visitor.visitBlockEnd(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof GitlabYamlVisitor) accept((GitlabYamlVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public List<GitlabYamlEndOfLine> getEndOfLineList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, GitlabYamlEndOfLine.class);
-  }
-
-  @Override
-  @NotNull
-  public List<GitlabYamlPair> getPairList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, GitlabYamlPair.class);
   }
 
 }

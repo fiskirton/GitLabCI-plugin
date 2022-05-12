@@ -96,6 +96,18 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // DEDENT
+  public static boolean block_end(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "block_end")) return false;
+    if (!nextTokenIs(b, DEDENT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, DEDENT);
+    exit_section_(b, m, BLOCK_END, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // identifier COLON
   static boolean block_start(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "block_start")) return false;
@@ -150,6 +162,18 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
     boolean r;
     r = consumeToken(b, COMMENT);
     if (!r) r = top_level_mapping(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // EOL
+  public static boolean end_of_line(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "end_of_line")) return false;
+    if (!nextTokenIs(b, EOL)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, EOL);
+    exit_section_(b, m, END_OF_LINE, r);
     return r;
   }
 
@@ -209,7 +233,7 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (pair EOL*)*
+  // (pair end_of_line*)*
   public static boolean mapping(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mapping")) return false;
     Marker m = enter_section_(b, l, _NONE_, MAPPING, "<mapping>");
@@ -222,7 +246,7 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // pair EOL*
+  // pair end_of_line*
   private static boolean mapping_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mapping_0")) return false;
     boolean r;
@@ -233,26 +257,27 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // EOL*
+  // end_of_line*
   private static boolean mapping_0_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mapping_0_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!consumeToken(b, EOL)) break;
+      if (!end_of_line(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "mapping_0_1", c)) break;
     }
     return true;
   }
 
   /* ********************************************************** */
-  // block_start EOL INDENT (sequence | mapping) DEDENT?
+  // block_start end_of_line INDENT (sequence | mapping) block_end?
   static boolean nested_block(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "nested_block")) return false;
     if (!nextTokenIs(b, ID)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = block_start(b, l + 1);
-    r = r && consumeTokens(b, 0, EOL, INDENT);
+    r = r && end_of_line(b, l + 1);
+    r = r && consumeToken(b, INDENT);
     r = r && nested_block_3(b, l + 1);
     r = r && nested_block_4(b, l + 1);
     exit_section_(b, m, null, r);
@@ -268,10 +293,10 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // DEDENT?
+  // block_end?
   private static boolean nested_block_4(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "nested_block_4")) return false;
-    consumeToken(b, DEDENT);
+    block_end(b, l + 1);
     return true;
   }
 
@@ -298,7 +323,7 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // !(INDENT | EOL | DEDENT )
+  // !(INDENT | end_of_line | block_end )
   static boolean property_recover(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property_recover")) return false;
     boolean r;
@@ -308,13 +333,13 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // INDENT | EOL | DEDENT
+  // INDENT | end_of_line | block_end
   private static boolean property_recover_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property_recover_0")) return false;
     boolean r;
     r = consumeToken(b, INDENT);
-    if (!r) r = consumeToken(b, EOL);
-    if (!r) r = consumeToken(b, DEDENT);
+    if (!r) r = end_of_line(b, l + 1);
+    if (!r) r = block_end(b, l + 1);
     return r;
   }
 
@@ -331,7 +356,7 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (sequence_item EOL?)+
+  // (sequence_item end_of_line?)+
   public static boolean sequence(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "sequence")) return false;
     if (!nextTokenIs(b, DASH)) return false;
@@ -347,7 +372,7 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // sequence_item EOL?
+  // sequence_item end_of_line?
   private static boolean sequence_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "sequence_0")) return false;
     boolean r;
@@ -358,10 +383,10 @@ public class GitlabYamlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // EOL?
+  // end_of_line?
   private static boolean sequence_0_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "sequence_0_1")) return false;
-    consumeToken(b, EOL);
+    end_of_line(b, l + 1);
     return true;
   }
 
