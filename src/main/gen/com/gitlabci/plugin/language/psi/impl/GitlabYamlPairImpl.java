@@ -35,8 +35,20 @@ public class GitlabYamlPairImpl extends ASTWrapperPsiElement implements GitlabYa
 
   @Override
   @Nullable
+  public GitlabYamlBlockEnd getBlockEnd() {
+    return findChildByClass(GitlabYamlBlockEnd.class);
+  }
+
+  @Override
+  @Nullable
   public GitlabYamlColonSeparated getColonSeparated() {
     return findChildByClass(GitlabYamlColonSeparated.class);
+  }
+
+  @Override
+  @Nullable
+  public GitlabYamlEndOfLine getEndOfLine() {
+    return findChildByClass(GitlabYamlEndOfLine.class);
   }
 
   @Override

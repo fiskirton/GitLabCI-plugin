@@ -31,6 +31,9 @@
             language="GitlabYaml"
             order="first"
             implementationClass="com.gitlabci.plugin.language.completion.GitlabYamlCompletionContributor"/>
+        <lang.foldingBuilder
+            language="GitlabYaml"
+            implementationClass="com.gitlabci.plugin.language.editor.GitlabYamlFoldingBuilder"/>
 
     </extensions>
 

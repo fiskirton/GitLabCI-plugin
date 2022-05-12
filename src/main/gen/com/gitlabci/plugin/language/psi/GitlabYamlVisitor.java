@@ -11,7 +11,15 @@ public class GitlabYamlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitBlockEnd(@NotNull GitlabYamlBlockEnd o) {
+    visitPsiElement(o);
+  }
+
   public void visitColonSeparated(@NotNull GitlabYamlColonSeparated o) {
+    visitPsiElement(o);
+  }
+
+  public void visitEndOfLine(@NotNull GitlabYamlEndOfLine o) {
     visitPsiElement(o);
   }
 

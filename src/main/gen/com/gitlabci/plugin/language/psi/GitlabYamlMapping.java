@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface GitlabYamlMapping extends PsiElement {
 
   @NotNull
+  List<GitlabYamlEndOfLine> getEndOfLineList();
+
+  @NotNull
   List<GitlabYamlPair> getPairList();
 
 }
