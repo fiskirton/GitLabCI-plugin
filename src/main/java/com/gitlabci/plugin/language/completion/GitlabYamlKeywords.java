@@ -150,6 +150,29 @@ public final class GitlabYamlKeywords {
             TRIGGERS,
             WEB
     );
+
+    public static final List<String> topLevelKeywords = List.of(
+            AFTER_SCRIPT,
+            BEFORE_SCRIPT,
+            CACHE,
+            DEFAULT,
+            IMAGE,
+            INCLUDE,
+            PAGES,
+            SERVICES,
+            STAGES,
+            VARIABLES,
+            WORKFLOW
+    );
+
+    public static final List<String> predefinedStages = List.of(
+            ".pre",
+            "build",
+            "test",
+            "deploy",
+            ".post"
+    );
+
     public static final Map<String, List<String>> sequencePossibleInputs = Map.ofEntries(
             entry(INCLUDE, List.of(LOCAL, FILE, REMOTE, TEMPLATE, PROJECT, REF)),
             entry(NEEDS, List.of(JOB, ARTIFACTS, PIPELINE, PROJECT, REF, OPTIONAL)),

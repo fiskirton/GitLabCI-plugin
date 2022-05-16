@@ -84,7 +84,7 @@ non_blank = [^ \t\r\n#]
 // Comments
 comment = {hash}[^\n\r]*
 
-%state IN_BLOCK STR IN_SEQUENCE
+%state IN_BLOCK STR IN_SEQUENCE IN_VALUE IN_UNQUOTED_STRING
 
 %%
 
@@ -113,12 +113,13 @@ comment = {hash}[^\n\r]*
 
 <IN_BLOCK> {
     {dash} {whiteSpace} {identifier} {colon} {
-      sequenceShift = 0;
-      yypushback(yylength());
-      yybegin(IN_SEQUENCE);
+              sequenceShift = 0;
+              yypushback(yylength());
+              yybegin(IN_SEQUENCE);
     }
-    {dash} {return GitlabYamlTokenTypes.DASH;}
-    {colon} {return GitlabYamlTokenTypes.COLON;}
+
+    {dash} {yybegin(IN_VALUE); return GitlabYamlTokenTypes.DASH;}
+    {colon} {yybegin(IN_VALUE); return GitlabYamlTokenTypes.COLON;}
     {comma} {return GitlabYamlTokenTypes.COMMA;}
     {lbracket} {return GitlabYamlTokenTypes.LBRACKET;}
     {rbracket} {return GitlabYamlTokenTypes.RBRACKET;}
@@ -138,89 +139,23 @@ comment = {hash}[^\n\r]*
 <IN_SEQUENCE> {
     {dash} {sequenceShift++; return GitlabYamlTokenTypes.DASH;}
     {colon} {
-          System.out.println("Current shift: " + sequenceShift + " Current Indent: " + peek());
-          yybegin(IN_BLOCK); return GitlabYamlTokenTypes.COLON;
+          yypushback(yylength());
+          yybegin(IN_BLOCK);
       }
     {identifier} {return GitlabYamlTokenTypes.ID;}
     {whiteSpace} {sequenceShift++; return TokenType.WHITE_SPACE;}
 }
 
+<IN_VALUE> {
+    {whiteSpace} {return TokenType.WHITE_SPACE;}
+    ['\"\[] {yypushback(yylength()); yybegin(IN_BLOCK);}
+    [^'\"\[] {yypushback(yylength());yybegin(IN_UNQUOTED_STRING);}
+}
+
+<IN_UNQUOTED_STRING> {
+    {intLtr}+ {return GitlabYamlTokenTypes.INT;}
+    [^\r\n#]+ {return GitlabYamlTokenTypes.STRING;}
+    {eol} {yypushback(yylength()); yybegin(IN_BLOCK);}
+}
+
 [^] {return GitlabYamlTokenTypes.UNKNOWN;}
-
-//<IN_STR>{
-//    {stringLtr} {currString += yytext();}
-//    \\$ { /* */ }
-//    "\"" {yybegin(IN_BLOCK); return GitlabYamlTokenTypes.STRING;}
-//}
-
-    // Gloabl keywords
-//    "default" {return GitlabYamlTokenTypes.DEFAULT;}
-//    "include" {return GitlabYamlTokenTypes.INCLUDE;}
-//    "stages" {return GitlabYamlTokenTypes.STAGES;}
-//    "variables" {return GitlabYamlTokenTypes.VARIABLES;}
-//    "workflow" {return GitlabYamlTokenTypes.WORKFLOW;}
-
-    // Job keywords
-
-//    "after_script" {return GitlabYamlTokenTypes.IN_BLOCK_SCRIPT;}
-//    "allow_failure" {return GitlabYamlTokenTypes.ALLOW_FAILURE;}
-//    "artifacts" {return GitlabYamlTokenTypes.ARTIFACTS;}
-//    "before_script" {return GitlabYamlTokenTypes.BEFORE_SCRIPT;}
-//    "cache" {return GitlabYamlTokenTypes.CACHE;}
-//    "coverage" {return GitlabYamlTokenTypes.COVERAGE;}
-//    "dast_configuration" {return GitlabYamlTokenTypes.DAST_CONFIGURATION;}
-//    "dependencies" {return GitlabYamlTokenTypes.DEPENDENCIES;}
-//    "environment" {return GitlabYamlTokenTypes.ENVIRONMENT;}
-//    "except" {return GitlabYamlTokenTypes.EXCEPT;}
-//    "extends" {return GitlabYamlTokenTypes.EXTENDS;}
-//    "image" {return GitlabYamlTokenTypes.IMAGE;}
-//    "inherit" {return GitlabYamlTokenTypes.INHERIT;}
-//    "interruptible" {return GitlabYamlTokenTypes.INTERRUPTIBLE;}
-//    "needs" {return GitlabYamlTokenTypes.NEEDS;}
-//    "only" {return GitlabYamlTokenTypes.ONLY;}
-//    "pages" {return GitlabYamlTokenTypes.PAGES;}
-//    "parallel" {return GitlabYamlTokenTypes.PARALLEL;}
-//    "release" {return GitlabYamlTokenTypes.RELEASE;}
-//    "resource_group" {return GitlabYamlTokenTypes.RESOURCE_GROUP;}
-//    "retry" {return GitlabYamlTokenTypes.RETRY;}
-//    "rules" {return GitlabYamlTokenTypes.RULES;}
-//    "script" {return GitlabYamlTokenTypes.SCRIPT;}
-//    "secrets" {return GitlabYamlTokenTypes.SECRETS;}
-//    "services" {return GitlabYamlTokenTypes.SERVICES;}
-//    "stage" {return GitlabYamlTokenTypes.STAGE;}
-//    "tags" {return GitlabYamlTokenTypes.TAGS;}
-//    "timeout" {return GitlabYamlTokenTypes.TIMEOUT;}
-//    "trigger" {return GitlabYamlTokenTypes.TRIGGER;}
-//    "variables" {return GitlabYamlTokenTypes.VARIABLES;}
-//    "when" {return GitlabYamlTokenTypes.WHEN;}
-
-    // Special chars
-
-//    {equal} {return GitlabYamlTokenTypes.EQUAL;}
-//    {plus} {return GitlabYamlTokenTypes.PLUS;}
-//    {asterisk} {return GitlabYamlTokenTypes.ASTERISK;}
-//    {exlamation} {return GitlabYamlTokenTypes.EXCLAMATION;}
-//    {question} {return GitlabYamlTokenTypes.QUESTION;}
-//    {underscore} {return GitlabYamlTokenTypes.UNDERSCORE;}
-
-//    {semicolon} {return GitlabYamlTokenTypes.SEMICOLON;}
-
-//    {dot} {return GitlabYamlTokenTypes.DOT;}
-//    {verticalBar} {return GitlabYamlTokenTypes.VERTICAL_BAR;}
-//    {slash} {return GitlabYamlTokenTypes.SLASH;}
-//    {backSlash} {return GitlabYamlTokenTypes.BACK_SLASH;}
-//    {at} {return GitlabYamlTokenTypes.AT;}
-//    {tilda} {return GitlabYamlTokenTypes.TILDA;}
-//    {ampersand} {return GitlabYamlTokenTypes.AMPERSAND;}
-//    {dollar} {return GitlabYamlTokenTypes.DOLLAR;}
-//    {hash} {return GitlabYamlTokenTypes.HASH;}
-//    {percent} {return GitlabYamlTokenTypes.PERCENT;}
-//    {power} {return GitlabYamlTokenTypes.POWER;}
-//    {lparen} {return GitlabYamlTokenTypes.LPAREN;}
-//    {rparen} {return GitlabYamlTokenTypes.RPAREN;}
-//    {lbrace} {return GitlabYamlTokenTypes.LBRACE;}
-//    {rbrace} {return GitlabYamlTokenTypes.RBRACE;}
-//    {quote} {return GitlabYamlTokenTypes.QUOTE;}
-//    {doubleQuote} {return GitlabYamlTokenTypes.DOUBLE_QUOTE;}
-
-//}

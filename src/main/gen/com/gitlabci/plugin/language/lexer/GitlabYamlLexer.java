@@ -27,6 +27,8 @@ class GitlabYamlLexer implements FlexLexer {
   public static final int IN_BLOCK = 2;
   public static final int STR = 4;
   public static final int IN_SEQUENCE = 6;
+  public static final int IN_VALUE = 8;
+  public static final int IN_UNQUOTED_STRING = 10;
 
   /**
    * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l
@@ -35,7 +37,7 @@ class GitlabYamlLexer implements FlexLexer {
    * l is of the form l = 2*k, k a non negative integer
    */
   private static final int ZZ_LEXSTATE[] = { 
-     0,  0,  1,  1,  2,  2,  3, 3
+     0,  0,  1,  1,  2,  2,  3,  3,  4,  4,  5, 5
   };
 
   /** 
@@ -73,12 +75,13 @@ class GitlabYamlLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\4\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7"+
+    "\6\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7"+
     "\1\10\1\5\1\11\1\12\1\13\1\14\1\15\2\5"+
-    "\1\16\1\17\1\20\1\21\2\0\1\22\3\0\1\23";
+    "\1\16\1\17\1\20\1\21\1\22\1\23\2\24\1\16"+
+    "\2\0\1\24\3\0\1\25";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[31];
+    int [] result = new int[38];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -103,13 +106,14 @@ class GitlabYamlLexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\22\0\44\0\66\0\110\0\110\0\110\0\132"+
-    "\0\110\0\110\0\110\0\154\0\176\0\220\0\110\0\110"+
-    "\0\110\0\110\0\242\0\264\0\176\0\110\0\110\0\110"+
-    "\0\306\0\242\0\110\0\264\0\330\0\352\0\110";
+    "\0\0\0\22\0\44\0\66\0\110\0\132\0\154\0\154"+
+    "\0\154\0\176\0\154\0\154\0\154\0\220\0\242\0\264"+
+    "\0\154\0\154\0\154\0\154\0\306\0\330\0\242\0\154"+
+    "\0\154\0\154\0\154\0\154\0\352\0\374\0\u010e\0\u0120"+
+    "\0\306\0\154\0\330\0\u0132\0\u0144\0\154";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[31];
+    int [] result = new int[38];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -132,20 +136,25 @@ class GitlabYamlLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\5\1\6\1\7\6\5\1\10\5\5\1\11\2\5"+
-    "\1\11\1\12\1\13\1\14\1\15\1\16\1\17\1\20"+
-    "\1\11\1\10\1\21\1\22\1\23\1\24\1\25\2\11"+
-    "\1\25\24\11\1\26\1\27\1\11\1\16\1\30\13\11"+
-    "\22\0\1\10\1\0\15\10\1\0\2\10\2\0\1\31"+
-    "\13\0\1\25\2\0\1\25\16\0\1\25\2\0\1\25"+
-    "\3\0\1\16\1\0\1\16\13\0\1\16\1\32\1\0"+
-    "\12\32\1\33\5\32\1\34\1\0\6\34\1\35\4\34"+
-    "\1\33\4\34\5\0\1\36\14\0\1\34\1\0\15\34"+
-    "\2\0\1\34\3\0\1\36\1\0\1\36\1\37\12\0"+
-    "\1\36";
+    "\1\7\1\10\1\11\6\7\1\12\5\7\1\13\2\7"+
+    "\1\13\1\14\1\15\1\16\1\17\1\20\1\21\1\22"+
+    "\1\13\1\12\1\23\1\24\1\25\1\26\1\27\2\13"+
+    "\1\27\24\13\1\30\1\31\1\13\1\20\1\32\13\13"+
+    "\2\33\1\15\7\33\1\34\1\33\2\34\4\33\1\35"+
+    "\1\34\1\35\2\36\4\35\1\13\4\35\1\37\1\13"+
+    "\1\35\1\37\22\0\1\12\1\0\15\12\1\0\2\12"+
+    "\2\0\1\40\13\0\1\27\2\0\1\27\16\0\1\27"+
+    "\2\0\1\27\3\0\1\20\1\0\1\20\13\0\1\20"+
+    "\1\41\1\0\12\41\1\42\5\41\1\43\1\0\6\43"+
+    "\1\44\4\43\1\42\4\43\1\35\1\0\7\35\1\0"+
+    "\5\35\1\0\3\35\1\0\7\35\1\0\4\35\1\37"+
+    "\1\0\1\35\1\37\1\35\1\0\1\35\2\36\4\35"+
+    "\1\0\4\35\1\37\1\0\1\35\1\37\5\0\1\45"+
+    "\14\0\1\43\1\0\15\43\2\0\1\43\3\0\1\45"+
+    "\1\0\1\45\1\46\12\0\1\45";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[252];
+    int [] result = new int[342];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -183,11 +192,11 @@ class GitlabYamlLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\4\0\3\11\1\1\3\11\3\1\4\11\3\1\3\11"+
-    "\2\0\1\11\3\0\1\11";
+    "\6\0\3\11\1\1\3\11\3\1\4\11\3\1\5\11"+
+    "\3\1\2\0\1\11\3\0\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[31];
+    int [] result = new int[38];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -529,102 +538,112 @@ class GitlabYamlLexer implements FlexLexer {
           }
             } 
             // fall through
-          case 20: break;
+          case 22: break;
           case 2: 
             { sequenceShift = 0; currIndent = 0;
             } 
             // fall through
-          case 21: break;
+          case 23: break;
           case 3: 
             { currIndent++;
             } 
             // fall through
-          case 22: break;
+          case 24: break;
           case 4: 
             { return GitlabYamlTokenTypes.COMMENT;
             } 
             // fall through
-          case 23: break;
+          case 25: break;
           case 5: 
             { return GitlabYamlTokenTypes.UNKNOWN;
             } 
             // fall through
-          case 24: break;
+          case 26: break;
           case 6: 
             { yybegin(YYINITIAL);
       currIndent = 0;
       return GitlabYamlTokenTypes.EOL;
             } 
             // fall through
-          case 25: break;
+          case 27: break;
           case 7: 
             { return TokenType.WHITE_SPACE;
             } 
             // fall through
-          case 26: break;
+          case 28: break;
           case 8: 
-            { return GitlabYamlTokenTypes.DASH;
+            { yybegin(IN_VALUE); return GitlabYamlTokenTypes.DASH;
             } 
             // fall through
-          case 27: break;
+          case 29: break;
           case 9: 
             { return GitlabYamlTokenTypes.ID;
             } 
             // fall through
-          case 28: break;
+          case 30: break;
           case 10: 
-            { return GitlabYamlTokenTypes.COLON;
+            { yybegin(IN_VALUE); return GitlabYamlTokenTypes.COLON;
             } 
             // fall through
-          case 29: break;
+          case 31: break;
           case 11: 
             { return GitlabYamlTokenTypes.COMMA;
             } 
             // fall through
-          case 30: break;
+          case 32: break;
           case 12: 
             { return GitlabYamlTokenTypes.LBRACKET;
             } 
             // fall through
-          case 31: break;
+          case 33: break;
           case 13: 
             { return GitlabYamlTokenTypes.RBRACKET;
             } 
             // fall through
-          case 32: break;
+          case 34: break;
           case 14: 
             { return GitlabYamlTokenTypes.INT;
             } 
             // fall through
-          case 33: break;
+          case 35: break;
           case 15: 
             { sequenceShift++; return TokenType.WHITE_SPACE;
             } 
             // fall through
-          case 34: break;
+          case 36: break;
           case 16: 
             { sequenceShift++; return GitlabYamlTokenTypes.DASH;
             } 
             // fall through
-          case 35: break;
-          case 17: 
-            { System.out.println("Current shift: " + sequenceShift + " Current Indent: " + peek());
-          yybegin(IN_BLOCK); return GitlabYamlTokenTypes.COLON;
-            } 
-            // fall through
-          case 36: break;
-          case 18: 
-            { return GitlabYamlTokenTypes.STRING;
-            } 
-            // fall through
           case 37: break;
-          case 19: 
-            { sequenceShift = 0;
-      yypushback(yylength());
-      yybegin(IN_SEQUENCE);
+          case 17: 
+            { yypushback(yylength());
+          yybegin(IN_BLOCK);
             } 
             // fall through
           case 38: break;
+          case 18: 
+            { yypushback(yylength());yybegin(IN_UNQUOTED_STRING);
+            } 
+            // fall through
+          case 39: break;
+          case 19: 
+            { yypushback(yylength()); yybegin(IN_BLOCK);
+            } 
+            // fall through
+          case 40: break;
+          case 20: 
+            { return GitlabYamlTokenTypes.STRING;
+            } 
+            // fall through
+          case 41: break;
+          case 21: 
+            { sequenceShift = 0;
+              yypushback(yylength());
+              yybegin(IN_SEQUENCE);
+            } 
+            // fall through
+          case 42: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }
