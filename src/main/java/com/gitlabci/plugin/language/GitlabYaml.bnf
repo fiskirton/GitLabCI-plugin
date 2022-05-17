@@ -46,6 +46,7 @@ identifier ::= ID {
     implements="com.gitlabci.plugin.language.psi.GitlabYamlNamedElement"
     methods=[ getText getName setName getNameIdentifier]
 }
+
 block_end ::= DEDENT
 end_of_line ::= EOL
 

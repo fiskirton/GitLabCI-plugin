@@ -34,13 +34,4 @@ public class GitlabYamlPsiImplUtil {
         ASTNode idNode = element.getNode().findChildByType(GitlabYamlTokenTypes.ID);
         return (idNode != null) ? idNode.getPsi() : null;
     }
-
-//    public static PsiElement setName(GitlabYamlProperty element, String name) {
-//        PsiElement  e = GitlabYamlElementTextFactory.createStatementFromText(element.project, name);
-//        PsiElement newE = PsiTreeUtil.findChildOfType(e, GitlabYamlProperty.class);
-//        if (newE != null) {
-//            e.replace(newE);
-//        }
-//        return e;
-//    }
 }
