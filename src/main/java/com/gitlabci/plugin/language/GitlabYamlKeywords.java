@@ -1,4 +1,4 @@
-package com.gitlabci.plugin.language.completion;
+package com.gitlabci.plugin.language;
 
 import java.util.List;
 import java.util.Map;

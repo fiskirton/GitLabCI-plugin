@@ -8,10 +8,9 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.gitlabci.plugin.language.psi.*;
 
-public class GitlabYamlIdentifierImpl extends ASTWrapperPsiElement implements GitlabYamlIdentifier {
+public class GitlabYamlIdentifierImpl extends GitlabYamlNamedElementImpl implements GitlabYamlIdentifier {
 
   public GitlabYamlIdentifierImpl(@NotNull ASTNode node) {
     super(node);
@@ -30,6 +29,21 @@ public class GitlabYamlIdentifierImpl extends ASTWrapperPsiElement implements Gi
   @Override
   public String getText() {
     return GitlabYamlPsiImplUtil.getText(this);
+  }
+
+  @Override
+  public String getName() {
+    return GitlabYamlPsiImplUtil.getName(this);
+  }
+
+  @Override
+  public PsiElement setName(String newName) {
+    return GitlabYamlPsiImplUtil.setName(this, newName);
+  }
+
+  @Override
+  public PsiElement getNameIdentifier() {
+    return GitlabYamlPsiImplUtil.getNameIdentifier(this);
   }
 
 }

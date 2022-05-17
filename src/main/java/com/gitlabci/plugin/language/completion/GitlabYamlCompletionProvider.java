@@ -1,6 +1,7 @@
 package com.gitlabci.plugin.language.completion;
 
 import com.gitlabci.plugin.language.GitlabYamlBundle;
+import com.gitlabci.plugin.language.GitlabYamlKeywords;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionProvider;
 import com.intellij.codeInsight.completion.CompletionResultSet;

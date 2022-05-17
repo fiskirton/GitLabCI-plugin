@@ -1,5 +1,6 @@
 package com.gitlabci.plugin.language.completion;
 
+import com.gitlabci.plugin.language.GitlabYamlKeywords;
 import com.intellij.codeInsight.completion.*;
 import com.intellij.patterns.ElementPattern;
 import com.intellij.psi.PsiElement;

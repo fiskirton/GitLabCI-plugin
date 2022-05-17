@@ -1,6 +1,7 @@
 package com.gitlabci.plugin.language.editor;
 
-import com.gitlabci.plugin.language.completion.GitlabYamlKeywords;
+import com.gitlabci.plugin.language.Utils;
+import com.gitlabci.plugin.language.GitlabYamlKeywords;
 import com.gitlabci.plugin.language.psi.*;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
@@ -12,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class GitlabYamlAnnotator implements Annotator {
+public class GitlabYamlErrorAnnotator implements Annotator {
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
 
@@ -72,7 +73,7 @@ public class GitlabYamlAnnotator implements Annotator {
                 parentIdStr = parentPairId.getText().strip();
                 annotateIncorrectInput(
                         parentIdStr,
-                        id.getText().strip(),
+                        idStr,
                         GitlabYamlKeywords.sequencePossibleInputs,
                         element,
                         holder
@@ -85,7 +86,7 @@ public class GitlabYamlAnnotator implements Annotator {
                         String message = String.format(
                                 "Keyword %s is not allowed at the top level declaration. Possible inputs: %s",
                                 idStr,
-                                getPossibleInputsFormatted(GitlabYamlKeywords.topLevelKeywords)
+                                Utils.listToString(GitlabYamlKeywords.topLevelKeywords)
                         );
                         createAnnotation(
                                 element,
@@ -98,7 +99,7 @@ public class GitlabYamlAnnotator implements Annotator {
                     if (stages == null && !containsPredefinedStages(element.getParent())) {
                         String message = String.format(
                                 "Neither user stages nor default stages defined. Please define at least one stage with 'stages' keyword or use next predefined stages: %s",
-                                getPossibleInputsFormatted(GitlabYamlKeywords.predefinedStages)
+                                Utils.listToString(GitlabYamlKeywords.predefinedStages)
                         );
 
                         createAnnotation(
@@ -155,14 +156,13 @@ public class GitlabYamlAnnotator implements Annotator {
     }
 
     private void annotateIncorrectInput(String key, String value, Map<String, List<String>> possibleInputs, PsiElement element, AnnotationHolder holder) {
-
-        String message = String.format(
-                        "Incorrect input for keyword %s. Possible inputs: %s",
-                        key,
-                        getPossibleInputsFormatted(possibleInputs.get(key))
-        );
-
         if (possibleInput(key, value, possibleInputs)) {
+            String message = String.format(
+                    "Incorrect input for keyword %s. Possible inputs: %s",
+                    key,
+                    Utils.listToString(possibleInputs.get(key))
+            );
+
             createAnnotation(
                     element,
                     holder,
@@ -177,10 +177,6 @@ public class GitlabYamlAnnotator implements Annotator {
         } else {
             return false;
         }
-    }
-
-    private String getPossibleInputsFormatted(List<String> possibleInputs) {
-        return String.join(", ", possibleInputs);
     }
 
     private PsiElement getSuperParent(int depth, PsiElement element) {
