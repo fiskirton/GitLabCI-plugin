@@ -41,7 +41,11 @@ colon_separated ::= identifier COLON identifier
 unquoted_string ::= (identifier !COLON)+
 literal ::= STRING | INT
 
-identifier ::= ID {methods=[ getText ]}
+identifier ::= ID {
+    mixin="com.gitlabci.plugin.language.psi.impl.GitlabYamlNamedElementImpl"
+    implements="com.gitlabci.plugin.language.psi.GitlabYamlNamedElement"
+    methods=[ getText getName setName getNameIdentifier]
+}
 block_end ::= DEDENT
 end_of_line ::= EOL
 

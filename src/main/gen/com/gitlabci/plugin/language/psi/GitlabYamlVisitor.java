@@ -24,7 +24,7 @@ public class GitlabYamlVisitor extends PsiElementVisitor {
   }
 
   public void visitIdentifier(@NotNull GitlabYamlIdentifier o) {
-    visitPsiElement(o);
+    visitNamedElement(o);
   }
 
   public void visitLiteral(@NotNull GitlabYamlLiteral o) {
@@ -52,6 +52,10 @@ public class GitlabYamlVisitor extends PsiElementVisitor {
   }
 
   public void visitUnquotedString(@NotNull GitlabYamlUnquotedString o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNamedElement(@NotNull GitlabYamlNamedElement o) {
     visitPsiElement(o);
   }
 

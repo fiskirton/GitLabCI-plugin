@@ -36,7 +36,10 @@
             implementationClass="com.gitlabci.plugin.language.editor.GitlabYamlFoldingBuilder"/>
         <annotator
             language="GitlabYaml"
-            implementationClass="com.gitlabci.plugin.language.editor.GitlabYamlAnnotator"/>
+            implementationClass="com.gitlabci.plugin.language.editor.GitlabYamlErrorAnnotator"/>
+        <lang.documentationProvider
+            language="GitlabYaml"
+            implementationClass="com.gitlabci.plugin.language.documentation.GitlabYamlDocumentationProvider"/>
 
     </extensions>
 
