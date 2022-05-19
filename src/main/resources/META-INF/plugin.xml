@@ -8,10 +8,10 @@
     <depends>PsiViewer</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.gitlabci.plugin.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.gitlabci.plugin.services.MyProjectService"/>
-<!--        <toolWindow id="Gitlab Pipeline Preview" secondary="false" icon="GitlabCIPluginIcons.GitlabYamlIcon" anchor="right"-->
-<!--                    factoryClass="com.gitlabci.plugin.windows.pipeline.PipelinePreviewWindowFactory"/>-->
+        <applicationService serviceImplementation="com.gitlabci.plugin.services.GitlabCIApplicationService"/>
+        <projectService serviceImplementation="com.gitlabci.plugin.services.GitlabCIProjectService"/>
+        <toolWindow id="GitlabCI" secondary="false" icon="GitlabYamlPluginIcons.GitlabYamlIcon" anchor="right"
+                    factoryClass="com.gitlabci.plugin.ui.GitlabCIToolWindowFactory"/>
         <fileType name="Gitlab YAML File"
                   implementationClass="com.gitlabci.plugin.language.GitlabYamlFileType"
                   fieldName="INSTANCE"
@@ -44,19 +44,14 @@
     </extensions>
 
     <applicationListeners>
-        <listener class="com.gitlabci.plugin.listeners.MyProjectManagerListener"
+        <listener class="com.gitlabci.plugin.listeners.GitlabCIProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
     <actions>
-<!--        <group id="com.gitlabci.plugin.groups.ContinuousIntegrationToolbar"-->
-<!--               class="com.gitlabci.plugin.groups.ContinuousIntegrationToolbar"-->
-<!--               text="Continuous Integration Toolbar" description="Continuous integration toolbar">-->
-<!--            <add-to-group group-id="NavBarToolBar" anchor="first"/>-->
-<!--            <separator/>-->
-<!--            <action class="com.gitlabci.plugin.actions.PipelinePreviewAction" id="org.intellij.sdk.action.GroupPopDialogAction"-->
-<!--                    text="Gitlab-CI Pipeline Preview" description="Show gitlab-CI pipeline preview" icon="GitlabCIPluginIcons.GitlabYamlIcon">-->
-<!--            </action>-->
-<!--            <separator/>-->
-<!--        </group>-->
+        <action class="com.gitlabci.plugin.actions.PipelinePreviewAction"
+                id="PipelinePreviewAction"
+                text="Gitlab-CI Pipeline Preview"
+                description="Show gitlab-CI pipeline preview"
+                icon="AllIcons.RunConfigurations.TestState.Run"/>
     </actions>
 </idea-plugin>

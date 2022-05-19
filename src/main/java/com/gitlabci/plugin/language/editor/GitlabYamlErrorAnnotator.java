@@ -1,17 +1,16 @@
 package com.gitlabci.plugin.language.editor;
 
-import com.gitlabci.plugin.language.Utils;
+import com.gitlabci.plugin.utils.PsiUtils;
+import com.gitlabci.plugin.utils.Utils;
 import com.gitlabci.plugin.language.GitlabYamlKeywords;
 import com.gitlabci.plugin.language.psi.*;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
 import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class GitlabYamlErrorAnnotator implements Annotator {
     @Override
@@ -22,7 +21,7 @@ public class GitlabYamlErrorAnnotator implements Annotator {
             boolean containsDuplicates = !Arrays
                     .stream(element.getChildren())
                     .filter(child -> child instanceof GitlabYamlPair)
-                    .map(this::getIdStr)
+                    .map(PsiUtils::getIdStr)
                     .allMatch(new HashSet<>()::add);
 
             if (containsDuplicates) {
@@ -56,8 +55,8 @@ public class GitlabYamlErrorAnnotator implements Annotator {
                     );
                 }
             }
-            if (element.getParent() instanceof GitlabYamlMapping && getSuperParent(2, element) instanceof GitlabYamlPair) {
-                parentPairId = getSuperParent(2, element).getFirstChild();
+            if (element.getParent() instanceof GitlabYamlMapping && PsiUtils.getSuperParent(2, element) instanceof GitlabYamlPair) {
+                parentPairId = PsiUtils.getSuperParent(2, element).getFirstChild();
                 parentIdStr = parentPairId.getText().strip();
                 annotateIncorrectInput(
                         parentIdStr,
@@ -68,8 +67,8 @@ public class GitlabYamlErrorAnnotator implements Annotator {
                 );
             }
 
-            if (getSuperParent(3, element) instanceof GitlabYamlSequence) {
-                parentPairId = getSuperParent(4, element).getFirstChild();
+            if (PsiUtils.getSuperParent(3, element) instanceof GitlabYamlSequence) {
+                parentPairId = PsiUtils.getSuperParent(4, element).getFirstChild();
                 parentIdStr = parentPairId.getText().strip();
                 annotateIncorrectInput(
                         parentIdStr,
@@ -80,7 +79,7 @@ public class GitlabYamlErrorAnnotator implements Annotator {
                 );
             }
 
-            if (getSuperParent(2, element) instanceof GitlabYamlTopLevelMapping) {
+            if (PsiUtils.getSuperParent(2, element) instanceof GitlabYamlTopLevelMapping) {
                 if (GitlabYamlKeywords.keywordTypes.containsKey(idStr)) {
                     if (!GitlabYamlKeywords.topLevelKeywords.contains(idStr)) {
                         String message = String.format(
@@ -95,8 +94,8 @@ public class GitlabYamlErrorAnnotator implements Annotator {
                         );
                     }
                 } else {
-                    List<String> stages = getStages(element.getParent());
-                    if (stages == null && !containsPredefinedStages(element.getParent())) {
+                    List<String> stages = PsiUtils.getStages(element.getParent());
+                    if (stages == null && !PsiUtils.containsPredefinedStages(element.getParent())) {
                         String message = String.format(
                                 "Neither user stages nor default stages defined. Please define at least one stage with 'stages' keyword or use next predefined stages: %s",
                                 Utils.listToString(GitlabYamlKeywords.predefinedStages)
@@ -109,7 +108,7 @@ public class GitlabYamlErrorAnnotator implements Annotator {
                         );
                     }
 
-                    if (stages != null && !stages.contains(getStageDefinition(element))) {
+                    if (stages != null && !stages.contains(PsiUtils.getValueOfKey("stage", element))) {
                         String message = "Invalid definition. Unknown keyword or undefined stage";
 
                         createAnnotation(
@@ -121,38 +120,6 @@ public class GitlabYamlErrorAnnotator implements Annotator {
                 }
             }
         }
-    }
-
-    private String getStageDefinition(PsiElement element) {
-        PsiElement mapping = PsiTreeUtil.findChildOfType(element, GitlabYamlMapping.class);
-        if (mapping != null) {
-            PsiElement stage = Arrays
-                    .stream(mapping.getChildren())
-                    .filter(child -> child instanceof GitlabYamlPair && getIdStr(child).equals("stage"))
-                    .reduce((first, second) -> first).orElse(null);
-
-            return stage != null ? stage.getLastChild().getText().strip() : null;
-        } else return null;
-
-    }
-
-    private boolean containsPredefinedStages(PsiElement element) {
-        return Arrays
-                .stream(element.getChildren()).anyMatch(child -> child instanceof GitlabYamlPair && GitlabYamlKeywords.predefinedStages.contains(getIdStr(child)));
-    }
-
-    private List<String> getStages(PsiElement element) {
-        PsiElement stages = Arrays
-                .stream(element.getChildren())
-                .filter(child -> child instanceof GitlabYamlPair && getIdStr(child).equals("stages"))
-                .reduce((first, second) -> first).orElse(null);
-
-        return stages == null
-                ? null
-                : PsiTreeUtil.findChildrenOfType(stages, GitlabYamlSequenceItem.class)
-                .stream()
-                .map(child -> child.getLastChild().getText().strip())
-                .collect(Collectors.toList());
     }
 
     private void annotateIncorrectInput(String key, String value, Map<String, List<String>> possibleInputs, PsiElement element, AnnotationHolder holder) {
@@ -177,18 +144,6 @@ public class GitlabYamlErrorAnnotator implements Annotator {
         } else {
             return false;
         }
-    }
-
-    private PsiElement getSuperParent(int depth, PsiElement element) {
-        if (depth == 0) {
-            return element;
-        }
-
-        return getSuperParent(depth - 1, element.getParent());
-    }
-
-    private String getIdStr(PsiElement element) {
-        return element.getFirstChild().getText().strip();
     }
 
     private void createAnnotation(PsiElement element, AnnotationHolder holder, String message) {

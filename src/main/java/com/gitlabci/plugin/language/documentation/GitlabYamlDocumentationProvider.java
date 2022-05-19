@@ -1,6 +1,6 @@
 package com.gitlabci.plugin.language.documentation;
 
-import com.gitlabci.plugin.language.Utils;
+import com.gitlabci.plugin.utils.Utils;
 import com.gitlabci.plugin.language.GitlabYamlKeywords;
 import com.gitlabci.plugin.language.psi.GitlabYamlIdentifier;
 import com.intellij.lang.documentation.AbstractDocumentationProvider;
