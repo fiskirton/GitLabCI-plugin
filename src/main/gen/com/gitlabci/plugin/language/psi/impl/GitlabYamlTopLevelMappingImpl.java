@@ -7,30 +7,30 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import static com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes.*;
+import static com.gitlabci.plugin.language.psi.GitLabYamlTokenTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.gitlabci.plugin.language.psi.*;
 
-public class GitlabYamlTopLevelMappingImpl extends ASTWrapperPsiElement implements GitlabYamlTopLevelMapping {
+public class GitLabYamlTopLevelMappingImpl extends ASTWrapperPsiElement implements GitLabYamlTopLevelMapping {
 
-  public GitlabYamlTopLevelMappingImpl(@NotNull ASTNode node) {
+  public GitLabYamlTopLevelMappingImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  public void accept(@NotNull GitlabYamlVisitor visitor) {
+  public void accept(@NotNull GitLabYamlVisitor visitor) {
     visitor.visitTopLevelMapping(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof GitlabYamlVisitor) accept((GitlabYamlVisitor)visitor);
+    if (visitor instanceof GitLabYamlVisitor) accept((GitLabYamlVisitor)visitor);
     else super.accept(visitor);
   }
 
   @Override
   @NotNull
-  public GitlabYamlMapping getMapping() {
-    return findNotNullChildByClass(GitlabYamlMapping.class);
+  public GitLabYamlMapping getMapping() {
+    return findNotNullChildByClass(GitLabYamlMapping.class);
   }
 
 }

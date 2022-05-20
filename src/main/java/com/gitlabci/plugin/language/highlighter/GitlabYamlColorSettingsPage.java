@@ -1,7 +1,7 @@
 package com.gitlabci.plugin.language.highlighter;
 
-import com.gitlabci.plugin.language.GitlabYamlBundle;
-import com.gitlabci.plugin.language.GitlabYamlFileType;
+import com.gitlabci.plugin.language.GitLabYamlBundle;
+import com.gitlabci.plugin.language.GitLabYamlFileType;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.util.Map;
 
-public class GitlabYamlColorSettingsPage implements ColorSettingsPage {
+public class GitLabYamlColorSettingsPage implements ColorSettingsPage {
 
     private static final String DEMO_TEXT =
       "image: docker:latest #test document\n"
@@ -26,23 +26,23 @@ public class GitlabYamlColorSettingsPage implements ColorSettingsPage {
     + "  TEST_VAR: 'TEST_VAR'";
 
     private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[] {
-        new AttributesDescriptor(GitlabYamlBundle.message("color.settings.gitlabyaml.string"), GitlabYamlHighlighter.STRING),
-        new AttributesDescriptor(GitlabYamlBundle.message("color.settings.gitlabyaml.sign"), GitlabYamlHighlighter.SIGN),
-        new AttributesDescriptor(GitlabYamlBundle.message("color.settings.gitlabyaml.comment"), GitlabYamlHighlighter.COMMENT),
-        new AttributesDescriptor(GitlabYamlBundle.message("color.settings.gitlabyaml.id"), GitlabYamlHighlighter.ID),
-        new AttributesDescriptor(GitlabYamlBundle.message("color.settings.gitlabyaml.int"), GitlabYamlHighlighter.INT),
+        new AttributesDescriptor(GitLabYamlBundle.message("color.settings.gitlabyaml.string"), GitLabYamlHighlighter.STRING),
+        new AttributesDescriptor(GitLabYamlBundle.message("color.settings.gitlabyaml.sign"), GitLabYamlHighlighter.SIGN),
+        new AttributesDescriptor(GitLabYamlBundle.message("color.settings.gitlabyaml.comment"), GitLabYamlHighlighter.COMMENT),
+        new AttributesDescriptor(GitLabYamlBundle.message("color.settings.gitlabyaml.id"), GitLabYamlHighlighter.ID),
+        new AttributesDescriptor(GitLabYamlBundle.message("color.settings.gitlabyaml.int"), GitLabYamlHighlighter.INT),
     };
 
     @Nullable
     @Override
     public Icon getIcon() {
-        return GitlabYamlFileType.INSTANCE.getIcon();
+        return GitLabYamlFileType.INSTANCE.getIcon();
     }
 
     @NotNull
     @Override
     public SyntaxHighlighter getHighlighter() {
-        return new GitlabYamlSyntaxHighlighter();
+        return new GitLabYamlSyntaxHighlighter();
     }
 
     @NotNull
@@ -58,18 +58,20 @@ public class GitlabYamlColorSettingsPage implements ColorSettingsPage {
     }
 
     @Override
-    public AttributesDescriptor @NotNull [] getAttributeDescriptors() {
+    @NotNull
+    public AttributesDescriptor[] getAttributeDescriptors() {
         return DESCRIPTORS;
     }
 
     @Override
-    public ColorDescriptor @NotNull [] getColorDescriptors() {
+    @NotNull
+    public ColorDescriptor [] getColorDescriptors() {
         return new ColorDescriptor[0];
     }
 
     @NotNull
     @Override
     public String getDisplayName() {
-        return "Gitlab YAML";
+        return "GitLab YAML";
     }
 }

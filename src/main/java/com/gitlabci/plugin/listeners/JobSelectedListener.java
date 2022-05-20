@@ -1,6 +1,6 @@
 package com.gitlabci.plugin.listeners;
 
-import com.gitlabci.plugin.ui.GitlabCIPanel;
+import com.gitlabci.plugin.ui.GitLabCIPanel;
 import com.gitlabci.plugin.ui.JobView;
 
 import javax.swing.table.DefaultTableModel;
@@ -12,7 +12,7 @@ public class JobSelectedListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        GitlabCIPanel panel = GitlabCIPanel.getInstance();
+        GitLabCIPanel panel = GitLabCIPanel.getInstance();
         JobView jobView = (JobView) e.getSource();
         DefaultTableModel model = (DefaultTableModel) panel.getPropertiesTable().getModel();
         model.setRowCount(0);

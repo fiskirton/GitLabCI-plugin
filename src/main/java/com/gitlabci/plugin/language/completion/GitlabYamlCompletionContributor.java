@@ -1,7 +1,8 @@
 package com.gitlabci.plugin.language.completion;
 
-import com.gitlabci.plugin.language.GitlabYamlKeywords;
-import com.intellij.codeInsight.completion.*;
+import com.gitlabci.plugin.language.GitLabYamlKeywords;
+import com.intellij.codeInsight.completion.CompletionContributor;
+import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.patterns.ElementPattern;
 import com.intellij.psi.PsiElement;
 
@@ -9,12 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class GitlabYamlCompletionContributor extends CompletionContributor {
+public class GitLabYamlCompletionContributor extends CompletionContributor {
     private void extendWrapper(ElementPattern<PsiElement> pattern, List<String> keywordsGroup) {
-        extend(CompletionType.BASIC, pattern, new GitlabYamlCompletionProvider(keywordsGroup));
+        extend(CompletionType.BASIC, pattern, new GitLabYamlCompletionProvider(keywordsGroup));
     }
 
-    private void applyPatternForKeywordsGroup(GitlabYamlPatterns.PossibleInputsPattern pattern, Map<String, List<String>> keywordsGroup) {
+    private void applyPatternForKeywordsGroup(GitLabYamlPatterns.PossibleInputsPattern pattern, Map<String, List<String>> keywordsGroup) {
         for (var keywordsPossibleInputs : keywordsGroup.entrySet()) {
             extendWrapper(
                 pattern.matchPattern(keywordsPossibleInputs.getKey()),
@@ -23,10 +24,10 @@ public class GitlabYamlCompletionContributor extends CompletionContributor {
         }
     }
 
-    public GitlabYamlCompletionContributor() {
+    public GitLabYamlCompletionContributor() {
         extendWrapper(
-            GitlabYamlPatterns.TopLevelKeywordsPatterns.topLevelKeywordsPattern(),
-            GitlabYamlKeywords.keywordTypes.entrySet()
+            GitLabYamlPatterns.TopLevelKeywordsPatterns.topLevelKeywordsPattern(),
+            GitLabYamlKeywords.keywordTypes.entrySet()
                     .stream()
                     .filter((entry) -> entry.getValue().equals("global") || entry.getValue().equals("job"))
                     .map(Map.Entry::getKey)
@@ -34,33 +35,33 @@ public class GitlabYamlCompletionContributor extends CompletionContributor {
         );
 
         applyPatternForKeywordsGroup(
-                GitlabYamlPatterns.PossibleInputsPatterns.afterIndentPossibleInputsPattern,
-                GitlabYamlKeywords.blockPossibleInputs
+                GitLabYamlPatterns.PossibleInputsPatterns.afterIndentPossibleInputsPattern,
+                GitLabYamlKeywords.blockPossibleInputs
         );
 
         applyPatternForKeywordsGroup(
-                GitlabYamlPatterns.PossibleInputsPatterns.afterDedentPossibleInputsPattern,
-                GitlabYamlKeywords.blockPossibleInputs
+                GitLabYamlPatterns.PossibleInputsPatterns.afterDedentPossibleInputsPattern,
+                GitLabYamlKeywords.blockPossibleInputs
         );
 
         applyPatternForKeywordsGroup(
-                GitlabYamlPatterns.PossibleInputsPatterns.afterPairPossibleInputsPattern,
-                GitlabYamlKeywords.blockPossibleInputs
+                GitLabYamlPatterns.PossibleInputsPatterns.afterPairPossibleInputsPattern,
+                GitLabYamlKeywords.blockPossibleInputs
         );
 
         applyPatternForKeywordsGroup(
-                GitlabYamlPatterns.PossibleInputsPatterns.startMultiplePossibleInputsPattern,
-                GitlabYamlKeywords.sequencePossibleInputs
+                GitLabYamlPatterns.PossibleInputsPatterns.startMultiplePossibleInputsPattern,
+                GitLabYamlKeywords.sequencePossibleInputs
         );
 
         applyPatternForKeywordsGroup(
-                GitlabYamlPatterns.PossibleInputsPatterns.continueMultiplePossibleInputsPattern,
-                GitlabYamlKeywords.sequencePossibleInputs
+                GitLabYamlPatterns.PossibleInputsPatterns.continueMultiplePossibleInputsPattern,
+                GitLabYamlKeywords.sequencePossibleInputs
         );
 
         applyPatternForKeywordsGroup(
-                GitlabYamlPatterns.PossibleInputsPatterns.inlineExprPossibleInputsPattern,
-                GitlabYamlKeywords.inlinePossibleInputs
+                GitLabYamlPatterns.PossibleInputsPatterns.inlineExprPossibleInputsPattern,
+                GitLabYamlKeywords.inlinePossibleInputs
         );
 
     }

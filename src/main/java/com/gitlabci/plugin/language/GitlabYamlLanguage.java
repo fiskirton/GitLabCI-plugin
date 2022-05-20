@@ -2,11 +2,11 @@ package com.gitlabci.plugin.language;
 
 import com.intellij.lang.Language;
 
-public class GitlabYamlLanguage extends Language {
+public class GitLabYamlLanguage extends Language {
 
-    public static final GitlabYamlLanguage INSTANCE = new GitlabYamlLanguage();
+    public static final GitLabYamlLanguage INSTANCE = new GitLabYamlLanguage();
 
-    private GitlabYamlLanguage() {
-        super("GitlabYaml");
+    private GitLabYamlLanguage() {
+        super("GitLabYaml");
     }
 }

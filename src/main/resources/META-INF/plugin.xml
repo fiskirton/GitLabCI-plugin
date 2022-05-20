@@ -1,56 +1,55 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.fiskirton.gitlabciplugin</id>
-    <name>GitlabCI</name>
-    <vendor>fiskirton</vendor>
+    <id>com.gitlabci.plugin</id>
+    <name>GitLabCI</name>
+    <vendor>https://github.com/fiskirton</vendor>
 
     <depends>com.intellij.modules.platform</depends>
-    <depends>PsiViewer</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.gitlabci.plugin.services.GitlabCIApplicationService"/>
-        <projectService serviceImplementation="com.gitlabci.plugin.services.GitlabCIProjectService"/>
-        <toolWindow id="GitlabCI" secondary="false" icon="GitlabYamlPluginIcons.GitlabYamlIcon" anchor="right"
-                    factoryClass="com.gitlabci.plugin.ui.GitlabCIToolWindowFactory"/>
-        <fileType name="Gitlab YAML File"
-                  implementationClass="com.gitlabci.plugin.language.GitlabYamlFileType"
+        <applicationService serviceImplementation="com.gitlabci.plugin.services.GitLabCIApplicationService"/>
+        <projectService serviceImplementation="com.gitlabci.plugin.services.GitLabCIProjectService"/>
+        <toolWindow id="GitLabCI" secondary="false" icon="GitLabYamlPluginIcons.GitLabYamlIcon" anchor="right"
+                    factoryClass="com.gitlabci.plugin.ui.GitLabCIToolWindowFactory"/>
+        <fileType name="GitLab YAML File"
+                  implementationClass="com.gitlabci.plugin.language.GitLabYamlFileType"
                   fieldName="INSTANCE"
-                  language="GitlabYaml"
+                  language="GitLabYaml"
                   extensions="gitlab-ci.yml"
                   patterns="*.gitlab-ci*"
         />
         <lang.parserDefinition
-            language="GitlabYaml"
-            implementationClass="com.gitlabci.plugin.language.pasrser.GitlabYamlParserDefinition"/>
+            language="GitLabYaml"
+            implementationClass="com.gitlabci.plugin.language.pasrser.GitLabYamlParserDefinition"/>
         <lang.syntaxHighlighterFactory
-            language="GitlabYaml"
-            implementationClass="com.gitlabci.plugin.language.highlighter.GitlabYamlSyntaxHighlighterFactory"/>
+            language="GitLabYaml"
+            implementationClass="com.gitlabci.plugin.language.highlighter.GitLabYamlSyntaxHighlighterFactory"/>
         <colorSettingsPage
-            implementation="com.gitlabci.plugin.language.highlighter.GitlabYamlColorSettingsPage"/>
+            implementation="com.gitlabci.plugin.language.highlighter.GitLabYamlColorSettingsPage"/>
         <completion.contributor
-            language="GitlabYaml"
+            language="GitLabYaml"
             order="first"
-            implementationClass="com.gitlabci.plugin.language.completion.GitlabYamlCompletionContributor"/>
+            implementationClass="com.gitlabci.plugin.language.completion.GitLabYamlCompletionContributor"/>
         <lang.foldingBuilder
-            language="GitlabYaml"
-            implementationClass="com.gitlabci.plugin.language.editor.GitlabYamlFoldingBuilder"/>
+            language="GitLabYaml"
+            implementationClass="com.gitlabci.plugin.language.editor.GitLabYamlFoldingBuilder"/>
         <annotator
-            language="GitlabYaml"
-            implementationClass="com.gitlabci.plugin.language.editor.GitlabYamlErrorAnnotator"/>
+            language="GitLabYaml"
+            implementationClass="com.gitlabci.plugin.language.editor.GitLabYamlErrorAnnotator"/>
         <lang.documentationProvider
-            language="GitlabYaml"
-            implementationClass="com.gitlabci.plugin.language.documentation.GitlabYamlDocumentationProvider"/>
+            language="GitLabYaml"
+            implementationClass="com.gitlabci.plugin.language.documentation.GitLabYamlDocumentationProvider"/>
 
     </extensions>
 
     <applicationListeners>
-        <listener class="com.gitlabci.plugin.listeners.GitlabCIProjectManagerListener"
+        <listener class="com.gitlabci.plugin.listeners.GitLabCIProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
     <actions>
         <action class="com.gitlabci.plugin.actions.PipelinePreviewAction"
                 id="PipelinePreviewAction"
-                text="Gitlab-CI Pipeline Preview"
+                text="GitLab-CI Pipeline Preview"
                 description="Show gitlab-CI pipeline preview"
                 icon="AllIcons.RunConfigurations.TestState.Run"/>
     </actions>

@@ -1,19 +1,19 @@
 {
-  parserClass="com.gitlabci.plugin.language.parser.GitlabYamlParser"
-  parserUtilClass="com.gitlabci.plugin.language.parser.GitlabYamlParserUtil"
+  parserClass="com.gitlabci.plugin.language.parser.GitLabYamlParser"
+  parserUtilClass="com.gitlabci.plugin.language.parser.GitLabYamlParserUtil"
 
   extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
-  psiClassPrefix="GitlabYaml"
+  psiClassPrefix="GitLabYaml"
   psiImplClassSuffix="Impl"
   psiPackage="com.gitlabci.plugin.language.psi"
   psiImplPackage="com.gitlabci.plugin.language.psi.impl"
 
-  elementTypeHolderClass="com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes"
-  elementTypeClass="com.gitlabci.plugin.language.psi.GitlabYamlElementType"
-  tokenTypeClass="com.gitlabci.plugin.language.psi.GitlabYamlTokenType"
+  elementTypeHolderClass="com.gitlabci.plugin.language.psi.GitLabYamlTokenTypes"
+  elementTypeClass="com.gitlabci.plugin.language.psi.GitLabYamlElementType"
+  tokenTypeClass="com.gitlabci.plugin.language.psi.GitLabYamlTokenType"
 
-  psiImplUtilClass="com.gitlabci.plugin.language.psi.impl.GitlabYamlPsiImplUtil"
+  psiImplUtilClass="com.gitlabci.plugin.language.psi.impl.GitLabYamlPsiImplUtil"
 }
 
 root ::= document *
@@ -21,13 +21,13 @@ private document ::= !<<eof>> (COMMENT | top_level_mapping) {pin=2 recoverWhile=
 private property_recover ::= !(INDENT | end_of_line | block_end )
 
 top_level_mapping ::= mapping
-mapping ::= (pair end_of_line*)*
+mapping ::= (pair COMMENT? end_of_line*)*
 pair ::= inline_expr
        | nested_block
        | incomplete_pair
 
 private incomplete_pair ::= block_start
-private inline_expr ::= block_start (array | literal | colon_separated | unquoted_string)
+private inline_expr ::= block_start (array | literal )
 private nested_block ::= block_start end_of_line INDENT (sequence | mapping) block_end?
 
 private block_start ::= identifier COLON
@@ -35,15 +35,13 @@ private block_start ::= identifier COLON
 array ::= LBRACKET literal (COMMA (literal | & RBRACKET))* RBRACKET {pin(".*")=1}
 
 sequence ::= (sequence_item end_of_line?)+
-sequence_item ::= DASH (literal | unquoted_string | mapping )
+sequence_item ::= DASH (literal| mapping )
 
-colon_separated ::= identifier COLON identifier
-unquoted_string ::= (identifier !COLON)+
 literal ::= STRING | INT
 
 identifier ::= ID {
-    mixin="com.gitlabci.plugin.language.psi.impl.GitlabYamlNamedElementImpl"
-    implements="com.gitlabci.plugin.language.psi.GitlabYamlNamedElement"
+    mixin="com.gitlabci.plugin.language.psi.impl.GitLabYamlNamedElementImpl"
+    implements="com.gitlabci.plugin.language.psi.GitLabYamlNamedElement"
     methods=[ getText getName setName getNameIdentifier]
 }
 

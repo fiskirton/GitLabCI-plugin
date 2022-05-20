@@ -6,37 +6,37 @@ import com.intellij.patterns.PsiElementPattern;
 import com.intellij.psi.PsiElement;
 
 
-public class GitlabYamlPatterns {
+public class GitLabYamlPatterns {
     static class TopLevelKeywordsPatterns extends PlatformPatterns {
         public static PsiElementPattern.Capture<PsiElement> topLevelKeywordsPattern() {
-            return psiElement().withParent(GitlabYamlFile.class).andNot(
+            return psiElement().withParent(GitLabYamlFile.class).andNot(
                     psiElement().andOr(
                             psiElement()
-                                    .afterLeaf(psiElement(GitlabYamlTokenTypes.INDENT)
-                                            .withParent(psiElement(GitlabYamlPair.class)
-                                            .withChild(psiElement(GitlabYamlIdentifier.class)))),
+                                    .afterLeaf(psiElement(GitLabYamlTokenTypes.INDENT)
+                                            .withParent(psiElement(GitLabYamlPair.class)
+                                            .withChild(psiElement(GitLabYamlIdentifier.class)))),
                             psiElement()
-                                    .afterLeaf(psiElement(GitlabYamlTokenTypes.DEDENT)
-                                    .withSuperParent(4, psiElement(GitlabYamlPair.class)
-                                            .withChild(psiElement(GitlabYamlIdentifier.class)))),
+                                    .afterLeaf(psiElement(GitLabYamlTokenTypes.DEDENT)
+                                    .withSuperParent(4, psiElement(GitLabYamlPair.class)
+                                            .withChild(psiElement(GitLabYamlIdentifier.class)))),
                             psiElement()
-                                    .afterLeaf(psiElement(GitlabYamlTokenTypes.DASH)
-                                    .withSuperParent(2, psiElement(GitlabYamlSequence.class)
-                                            .withParent(psiElement(GitlabYamlPair.class)
-                                                    .withChild(psiElement(GitlabYamlIdentifier.class))))),
+                                    .afterLeaf(psiElement(GitLabYamlTokenTypes.DASH)
+                                    .withSuperParent(2, psiElement(GitLabYamlSequence.class)
+                                            .withParent(psiElement(GitLabYamlPair.class)
+                                                    .withChild(psiElement(GitLabYamlIdentifier.class))))),
                             psiElement()
-                                    .afterLeaf(psiElement(GitlabYamlTokenTypes.EOL)
-                                    .withSuperParent(3, psiElement(GitlabYamlPair.class)
-                                            .withChild(psiElement(GitlabYamlIdentifier.class)))),
+                                    .afterLeaf(psiElement(GitLabYamlTokenTypes.EOL)
+                                    .withSuperParent(3, psiElement(GitLabYamlPair.class)
+                                            .withChild(psiElement(GitLabYamlIdentifier.class)))),
                             psiElement()
-                                    .afterLeaf(psiElement(GitlabYamlTokenTypes.COLON)
-                                    .withParent(psiElement(GitlabYamlPair.class)
-                                            .withChild(psiElement(GitlabYamlIdentifier.class)))),
+                                    .afterLeaf(psiElement(GitLabYamlTokenTypes.COLON)
+                                    .withParent(psiElement(GitLabYamlPair.class)
+                                            .withChild(psiElement(GitLabYamlIdentifier.class)))),
                             psiElement()
-                                    .afterLeaf(psiElement(GitlabYamlTokenTypes.EOL)
-                                    .withSuperParent(4, psiElement(GitlabYamlSequence.class)
-                                            .withParent(psiElement(GitlabYamlPair.class)
-                                                    .withChild(psiElement(GitlabYamlIdentifier.class)))))
+                                    .afterLeaf(psiElement(GitLabYamlTokenTypes.EOL)
+                                    .withSuperParent(4, psiElement(GitLabYamlSequence.class)
+                                            .withParent(psiElement(GitLabYamlPair.class)
+                                                    .withChild(psiElement(GitLabYamlIdentifier.class)))))
 
                     )
             );
@@ -50,18 +50,18 @@ public class GitlabYamlPatterns {
     static class PossibleInputsPatterns extends PlatformPatterns {
 
         public static PossibleInputsPattern afterIndentPossibleInputsPattern = (keyword) ->
-                psiElement().afterLeaf(psiElement(GitlabYamlTokenTypes.INDENT)
-                        .withParent(psiElement(GitlabYamlPair.class)
-                                .withChild(psiElement(GitlabYamlIdentifier.class)
+                psiElement().afterLeaf(psiElement(GitLabYamlTokenTypes.INDENT)
+                        .withParent(psiElement(GitLabYamlPair.class)
+                                .withChild(psiElement(GitLabYamlIdentifier.class)
                                         .withText(keyword)
                                 )
                         )
                 );
 
         public static PossibleInputsPattern afterDedentPossibleInputsPattern = (keyword) ->
-                psiElement().afterLeaf(psiElement(GitlabYamlTokenTypes.DEDENT)
-                        .withSuperParent(4, psiElement(GitlabYamlPair.class)
-                                .withChild(psiElement(GitlabYamlIdentifier.class)
+                psiElement().afterLeaf(psiElement(GitLabYamlTokenTypes.DEDENT)
+                        .withSuperParent(4, psiElement(GitLabYamlPair.class)
+                                .withChild(psiElement(GitLabYamlIdentifier.class)
                                         .withText(keyword)
                                 )
                         )
@@ -70,38 +70,38 @@ public class GitlabYamlPatterns {
 
         public static PossibleInputsPattern afterPairPossibleInputsPattern = (keyword) ->
                 psiElement()
-                        .afterLeaf(psiElement(GitlabYamlTokenTypes.EOL)
-                                .withSuperParent(3, psiElement(GitlabYamlPair.class)
-                                        .withChild(psiElement(GitlabYamlIdentifier.class)
+                        .afterLeaf(psiElement(GitLabYamlTokenTypes.EOL)
+                                .withSuperParent(3, psiElement(GitLabYamlPair.class)
+                                        .withChild(psiElement(GitLabYamlIdentifier.class)
                                                 .withText(keyword)
                                         )
                                 )
                         );
 
         public static PossibleInputsPattern startMultiplePossibleInputsPattern = (keyword) ->
-                psiElement().afterLeaf(psiElement(GitlabYamlTokenTypes.DASH)
-                        .withSuperParent(2, psiElement(GitlabYamlSequence.class)
-                                .withParent(psiElement(GitlabYamlPair.class)
-                                        .withChild(psiElement(GitlabYamlIdentifier.class)
+                psiElement().afterLeaf(psiElement(GitLabYamlTokenTypes.DASH)
+                        .withSuperParent(2, psiElement(GitLabYamlSequence.class)
+                                .withParent(psiElement(GitLabYamlPair.class)
+                                        .withChild(psiElement(GitLabYamlIdentifier.class)
                                                 .withText(keyword)
                                         )
                                 )
                         )
                 );
         public static PossibleInputsPattern continueMultiplePossibleInputsPattern = (keyword) ->
-                psiElement().afterLeaf(psiElement(GitlabYamlTokenTypes.EOL)
-                        .withSuperParent(4, psiElement(GitlabYamlSequence.class)
-                                .withParent(psiElement(GitlabYamlPair.class)
-                                        .withChild(psiElement(GitlabYamlIdentifier.class)
+                psiElement().afterLeaf(psiElement(GitLabYamlTokenTypes.EOL)
+                        .withSuperParent(4, psiElement(GitLabYamlSequence.class)
+                                .withParent(psiElement(GitLabYamlPair.class)
+                                        .withChild(psiElement(GitLabYamlIdentifier.class)
                                                 .withText(keyword)
                                         )
                                 )
                         )
                 );
         public static PossibleInputsPattern inlineExprPossibleInputsPattern = (keyword) ->
-                psiElement().afterLeaf(psiElement(GitlabYamlTokenTypes.COLON)
-                        .withParent(psiElement(GitlabYamlPair.class)
-                                        .withChild(psiElement(GitlabYamlIdentifier.class)
+                psiElement().afterLeaf(psiElement(GitLabYamlTokenTypes.COLON)
+                        .withParent(psiElement(GitLabYamlPair.class)
+                                        .withChild(psiElement(GitLabYamlIdentifier.class)
                                                 .withText(keyword)
                                         )
                         )

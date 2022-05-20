@@ -5,6 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface GitlabYamlLiteral extends PsiElement {
+public interface GitLabYamlLiteral extends PsiElement {
 
 }

@@ -7,36 +7,36 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import static com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes.*;
+import static com.gitlabci.plugin.language.psi.GitLabYamlTokenTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.gitlabci.plugin.language.psi.*;
 
-public class GitlabYamlMappingImpl extends ASTWrapperPsiElement implements GitlabYamlMapping {
+public class GitLabYamlMappingImpl extends ASTWrapperPsiElement implements GitLabYamlMapping {
 
-  public GitlabYamlMappingImpl(@NotNull ASTNode node) {
+  public GitLabYamlMappingImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  public void accept(@NotNull GitlabYamlVisitor visitor) {
+  public void accept(@NotNull GitLabYamlVisitor visitor) {
     visitor.visitMapping(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof GitlabYamlVisitor) accept((GitlabYamlVisitor)visitor);
+    if (visitor instanceof GitLabYamlVisitor) accept((GitLabYamlVisitor)visitor);
     else super.accept(visitor);
   }
 
   @Override
   @NotNull
-  public List<GitlabYamlEndOfLine> getEndOfLineList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, GitlabYamlEndOfLine.class);
+  public List<GitLabYamlEndOfLine> getEndOfLineList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, GitLabYamlEndOfLine.class);
   }
 
   @Override
   @NotNull
-  public List<GitlabYamlPair> getPairList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, GitlabYamlPair.class);
+  public List<GitLabYamlPair> getPairList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, GitLabYamlPair.class);
   }
 
 }

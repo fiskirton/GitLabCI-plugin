@@ -6,73 +6,65 @@ import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
 import com.gitlabci.plugin.language.psi.impl.*;
 
-public interface GitlabYamlTokenTypes {
+public interface GitLabYamlTokenTypes {
 
-  IElementType ARRAY = new GitlabYamlElementType("ARRAY");
-  IElementType BLOCK_END = new GitlabYamlElementType("BLOCK_END");
-  IElementType COLON_SEPARATED = new GitlabYamlElementType("COLON_SEPARATED");
-  IElementType END_OF_LINE = new GitlabYamlElementType("END_OF_LINE");
-  IElementType IDENTIFIER = new GitlabYamlElementType("IDENTIFIER");
-  IElementType LITERAL = new GitlabYamlElementType("LITERAL");
-  IElementType MAPPING = new GitlabYamlElementType("MAPPING");
-  IElementType PAIR = new GitlabYamlElementType("PAIR");
-  IElementType SEQUENCE = new GitlabYamlElementType("SEQUENCE");
-  IElementType SEQUENCE_ITEM = new GitlabYamlElementType("SEQUENCE_ITEM");
-  IElementType TOP_LEVEL_MAPPING = new GitlabYamlElementType("TOP_LEVEL_MAPPING");
-  IElementType UNQUOTED_STRING = new GitlabYamlElementType("UNQUOTED_STRING");
+  IElementType ARRAY = new GitLabYamlElementType("ARRAY");
+  IElementType BLOCK_END = new GitLabYamlElementType("BLOCK_END");
+  IElementType END_OF_LINE = new GitLabYamlElementType("END_OF_LINE");
+  IElementType IDENTIFIER = new GitLabYamlElementType("IDENTIFIER");
+  IElementType LITERAL = new GitLabYamlElementType("LITERAL");
+  IElementType MAPPING = new GitLabYamlElementType("MAPPING");
+  IElementType PAIR = new GitLabYamlElementType("PAIR");
+  IElementType SEQUENCE = new GitLabYamlElementType("SEQUENCE");
+  IElementType SEQUENCE_ITEM = new GitLabYamlElementType("SEQUENCE_ITEM");
+  IElementType TOP_LEVEL_MAPPING = new GitLabYamlElementType("TOP_LEVEL_MAPPING");
 
-  IElementType COLON = new GitlabYamlTokenType("COLON");
-  IElementType COMMA = new GitlabYamlTokenType("COMMA");
-  IElementType COMMENT = new GitlabYamlTokenType("COMMENT");
-  IElementType DASH = new GitlabYamlTokenType("DASH");
-  IElementType DEDENT = new GitlabYamlTokenType("DEDENT");
-  IElementType EOL = new GitlabYamlTokenType("EOL");
-  IElementType ID = new GitlabYamlTokenType("ID");
-  IElementType INDENT = new GitlabYamlTokenType("INDENT");
-  IElementType INT = new GitlabYamlTokenType("INT");
-  IElementType LBRACKET = new GitlabYamlTokenType("LBRACKET");
-  IElementType RBRACKET = new GitlabYamlTokenType("RBRACKET");
-  IElementType STRING = new GitlabYamlTokenType("STRING");
-  IElementType UNKNOWN = new GitlabYamlTokenType("UNKNOWN");
+  IElementType COLON = new GitLabYamlTokenType("COLON");
+  IElementType COMMA = new GitLabYamlTokenType("COMMA");
+  IElementType COMMENT = new GitLabYamlTokenType("COMMENT");
+  IElementType DASH = new GitLabYamlTokenType("DASH");
+  IElementType DEDENT = new GitLabYamlTokenType("DEDENT");
+  IElementType EOL = new GitLabYamlTokenType("EOL");
+  IElementType ID = new GitLabYamlTokenType("ID");
+  IElementType INDENT = new GitLabYamlTokenType("INDENT");
+  IElementType INT = new GitLabYamlTokenType("INT");
+  IElementType LBRACKET = new GitLabYamlTokenType("LBRACKET");
+  IElementType RBRACKET = new GitLabYamlTokenType("RBRACKET");
+  IElementType STRING = new GitLabYamlTokenType("STRING");
+  IElementType UNKNOWN = new GitLabYamlTokenType("UNKNOWN");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
       if (type == ARRAY) {
-        return new GitlabYamlArrayImpl(node);
+        return new GitLabYamlArrayImpl(node);
       }
       else if (type == BLOCK_END) {
-        return new GitlabYamlBlockEndImpl(node);
-      }
-      else if (type == COLON_SEPARATED) {
-        return new GitlabYamlColonSeparatedImpl(node);
+        return new GitLabYamlBlockEndImpl(node);
       }
       else if (type == END_OF_LINE) {
-        return new GitlabYamlEndOfLineImpl(node);
+        return new GitLabYamlEndOfLineImpl(node);
       }
       else if (type == IDENTIFIER) {
-        return new GitlabYamlIdentifierImpl(node);
+        return new GitLabYamlIdentifierImpl(node);
       }
       else if (type == LITERAL) {
-        return new GitlabYamlLiteralImpl(node);
+        return new GitLabYamlLiteralImpl(node);
       }
       else if (type == MAPPING) {
-        return new GitlabYamlMappingImpl(node);
+        return new GitLabYamlMappingImpl(node);
       }
       else if (type == PAIR) {
-        return new GitlabYamlPairImpl(node);
+        return new GitLabYamlPairImpl(node);
       }
       else if (type == SEQUENCE) {
-        return new GitlabYamlSequenceImpl(node);
+        return new GitLabYamlSequenceImpl(node);
       }
       else if (type == SEQUENCE_ITEM) {
-        return new GitlabYamlSequenceItemImpl(node);
+        return new GitLabYamlSequenceItemImpl(node);
       }
       else if (type == TOP_LEVEL_MAPPING) {
-        return new GitlabYamlTopLevelMappingImpl(node);
-      }
-      else if (type == UNQUOTED_STRING) {
-        return new GitlabYamlUnquotedStringImpl(node);
+        return new GitLabYamlTopLevelMappingImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

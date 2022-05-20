@@ -1,12 +1,12 @@
 package com.gitlabci.plugin.actions;
 
-import com.gitlabci.plugin.language.psi.GitlabYamlFile;
-import com.gitlabci.plugin.utils.PsiUtils;
-import com.gitlabci.plugin.language.psi.GitlabYamlPair;
+import com.gitlabci.plugin.language.psi.GitLabYamlFile;
+import com.gitlabci.plugin.language.psi.GitLabYamlPair;
+import com.gitlabci.plugin.ui.GitLabCIPanel;
 import com.gitlabci.plugin.ui.Job;
 import com.gitlabci.plugin.ui.PipelinePreviewBuilder;
-import com.gitlabci.plugin.ui.GitlabCIPanel;
 import com.gitlabci.plugin.ui.Stage;
+import com.gitlabci.plugin.utils.PsiUtils;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -14,13 +14,11 @@ import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
-
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -35,21 +33,25 @@ public class PipelinePreviewAction extends AnAction {
     public void update(@NotNull AnActionEvent event) {
         Project project = event.getData(CommonDataKeys.PROJECT);
         Presentation presentation = event.getPresentation();
+        assert project != null;
         VirtualFile currentEditedFile = FileEditorManager.getInstance(project).getSelectedFiles()[0];
         PsiFile file = PsiManager.getInstance(project).findFile(currentEditedFile);
 
-        presentation.setEnabled(file instanceof GitlabYamlFile);
+        presentation.setEnabled(file instanceof GitLabYamlFile);
     }
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
         Project project = event.getData(CommonDataKeys.PROJECT);
+        assert project != null;
         VirtualFile currentEditedFile = FileEditorManager.getInstance(project).getSelectedFiles()[0];
         PsiFile file = PsiManager.getInstance(project).findFile(currentEditedFile);
+        assert file != null;
         PsiElement topLevelMapping = file.getFirstChild();
         Map<String, Stage> stages = getStages(topLevelMapping);
-        ToolWindow toolWindow = ToolWindowManager.getInstance(project).getToolWindow("GitlabCI");
-        GitlabCIPanel panel = (GitlabCIPanel) toolWindow.getContentManager().getContent(0).getComponent();
+        ToolWindow toolWindow = ToolWindowManager.getInstance(project).getToolWindow("GitLabCI");
+        assert toolWindow != null;
+        GitLabCIPanel panel = (GitLabCIPanel) toolWindow.getContentManager().getContent(0).getComponent();
         panel.getPreviewPanel().removeAll();
         JPanel stagesPanel = PipelinePreviewBuilder.createPipelineDiagram(stages);
         panel.getPreviewPanel().add(stagesPanel);
@@ -70,12 +72,11 @@ public class PipelinePreviewAction extends AnAction {
                 .collect(Collectors.toMap(Stage::getStageName, Stage::getSelf));
 
         for (var child : rootMapping.getChildren()) {
-            if (child instanceof GitlabYamlPair) {
+            if (child instanceof GitLabYamlPair) {
                 String jobName = PsiUtils.getIdStr(child);
                 String stage = PsiUtils.getValueOfKey("stage", child);
                 if (stage != null) {
                     if (stagesNames.contains(stage)) {
-                        Map<String, String> params = getRequiredParams(child, "script");
                         stages.get(stage).getJobs().put(jobName, new Job(jobName, getRequiredParams(child, "script")));
                     }
                 }

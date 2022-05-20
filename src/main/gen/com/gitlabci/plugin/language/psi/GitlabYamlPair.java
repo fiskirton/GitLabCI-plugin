@@ -5,33 +5,27 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface GitlabYamlPair extends PsiElement {
+public interface GitLabYamlPair extends PsiElement {
 
   @Nullable
-  GitlabYamlArray getArray();
+  GitLabYamlArray getArray();
 
   @Nullable
-  GitlabYamlBlockEnd getBlockEnd();
+  GitLabYamlBlockEnd getBlockEnd();
 
   @Nullable
-  GitlabYamlColonSeparated getColonSeparated();
-
-  @Nullable
-  GitlabYamlEndOfLine getEndOfLine();
+  GitLabYamlEndOfLine getEndOfLine();
 
   @NotNull
-  GitlabYamlIdentifier getIdentifier();
+  GitLabYamlIdentifier getIdentifier();
 
   @Nullable
-  GitlabYamlLiteral getLiteral();
+  GitLabYamlLiteral getLiteral();
 
   @Nullable
-  GitlabYamlMapping getMapping();
+  GitLabYamlMapping getMapping();
 
   @Nullable
-  GitlabYamlSequence getSequence();
-
-  @Nullable
-  GitlabYamlUnquotedString getUnquotedString();
+  GitLabYamlSequence getSequence();
 
 }
