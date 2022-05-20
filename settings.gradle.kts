@@ -1,2 +1,2 @@
-rootProject.name = "GitlabCI-plugin"
+rootProject.name = "GitLabCI-plugin"
 include("java")

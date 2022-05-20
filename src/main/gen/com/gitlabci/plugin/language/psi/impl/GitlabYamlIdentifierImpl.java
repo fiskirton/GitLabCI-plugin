@@ -7,43 +7,43 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import static com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes.*;
+import static com.gitlabci.plugin.language.psi.GitLabYamlTokenTypes.*;
 import com.gitlabci.plugin.language.psi.*;
 
-public class GitlabYamlIdentifierImpl extends GitlabYamlNamedElementImpl implements GitlabYamlIdentifier {
+public class GitLabYamlIdentifierImpl extends GitLabYamlNamedElementImpl implements GitLabYamlIdentifier {
 
-  public GitlabYamlIdentifierImpl(@NotNull ASTNode node) {
+  public GitLabYamlIdentifierImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  public void accept(@NotNull GitlabYamlVisitor visitor) {
+  public void accept(@NotNull GitLabYamlVisitor visitor) {
     visitor.visitIdentifier(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof GitlabYamlVisitor) accept((GitlabYamlVisitor)visitor);
+    if (visitor instanceof GitLabYamlVisitor) accept((GitLabYamlVisitor)visitor);
     else super.accept(visitor);
   }
 
   @Override
   public String getText() {
-    return GitlabYamlPsiImplUtil.getText(this);
+    return GitLabYamlPsiImplUtil.getText(this);
   }
 
   @Override
   public String getName() {
-    return GitlabYamlPsiImplUtil.getName(this);
+    return GitLabYamlPsiImplUtil.getName(this);
   }
 
   @Override
   public PsiElement setName(String newName) {
-    return GitlabYamlPsiImplUtil.setName(this, newName);
+    return GitLabYamlPsiImplUtil.setName(this, newName);
   }
 
   @Override
   public PsiElement getNameIdentifier() {
-    return GitlabYamlPsiImplUtil.getNameIdentifier(this);
+    return GitLabYamlPsiImplUtil.getNameIdentifier(this);
   }
 
 }

@@ -1,7 +1,7 @@
 package com.gitlabci.plugin.language.completion;
 
-import com.gitlabci.plugin.language.GitlabYamlBundle;
-import com.gitlabci.plugin.language.GitlabYamlKeywords;
+import com.gitlabci.plugin.language.GitLabYamlBundle;
+import com.gitlabci.plugin.language.GitLabYamlKeywords;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionProvider;
 import com.intellij.codeInsight.completion.CompletionResultSet;
@@ -9,43 +9,43 @@ import com.intellij.codeInsight.completion.PrioritizedLookupElement;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.util.ProcessingContext;
-import icons.GitlabYamlPluginIcons;
+import icons.GitLabYamlPluginIcons;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GitlabYamlCompletionProvider extends CompletionProvider<CompletionParameters> {
+public class GitLabYamlCompletionProvider extends CompletionProvider<CompletionParameters> {
 
     private final List<String> keywords;
 
-    public GitlabYamlCompletionProvider(List<String> keywords) {
+    public GitLabYamlCompletionProvider(List<String> keywords) {
         this.keywords = keywords;
     }
 
     private LookupElement buildCustomSuggestion(String keyword) {
         LookupElementBuilder result = LookupElementBuilder.create(keyword);
 
-        switch (GitlabYamlKeywords.keywordTypes.get(keyword)) {
+        switch (GitLabYamlKeywords.keywordTypes.get(keyword)) {
             case "global":
                 return PrioritizedLookupElement.withPriority(
                         result.bold()
-                                .withIcon(GitlabYamlPluginIcons.GitlabYamlGlobalKeywordIcon)
-                                .withTypeText(GitlabYamlBundle.message("keyword.type.gitlabyaml.global")),
+                                .withIcon(GitLabYamlPluginIcons.GitLabYamlGlobalKeywordIcon)
+                                .withTypeText(GitLabYamlBundle.message("keyword.type.gitlabyaml.global")),
                         1
                 );
             case "job":
                 return PrioritizedLookupElement.withPriority(
                         result.bold()
-                                .withIcon(GitlabYamlPluginIcons.GitlabYamlJobKeywordIcon)
-                                .withTypeText(GitlabYamlBundle.message("keyword.type.gitlabyaml.job")),
+                                .withIcon(GitLabYamlPluginIcons.GitLabYamlJobKeywordIcon)
+                                .withTypeText(GitLabYamlBundle.message("keyword.type.gitlabyaml.job")),
                         2
                 );
             case "input":
                 return PrioritizedLookupElement.withPriority(
                         result.bold()
-                                .withIcon(GitlabYamlPluginIcons.GitlabYamlInputIcon)
-                                .withTypeText(GitlabYamlBundle.message("keyword.type.gitlabyaml.input")),
+                                .withIcon(GitLabYamlPluginIcons.GitLabYamlInputIcon)
+                                .withTypeText(GitLabYamlBundle.message("keyword.type.gitlabyaml.input")),
                         3
                 );
             default:

@@ -1,11 +1,12 @@
 package com.gitlabci.plugin.language.documentation;
 
-import com.gitlabci.plugin.language.GitlabYamlKeywords;
+import com.gitlabci.plugin.language.GitLabYamlKeywords;
 
 import java.util.Map;
+
 import static java.util.Map.entry;
 
-public final class GitlabYamlDocumentationHTML {
+public final class GitLabYamlDocumentationHTML {
 
     public static final String style = "<style type=\"text/css\">\n" +
             "  .s0 { color: #808080;}\n" +
@@ -26,7 +27,7 @@ public final class GitlabYamlDocumentationHTML {
             "  }";
 
     public static final Map<String, String> examples = Map.ofEntries(
-            entry(GitlabYamlKeywords.DEFAULT, "<div>\n" +
+            entry(GitLabYamlKeywords.DEFAULT, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">default</span><span class=\"s1\">:</span>\n" +
@@ -37,7 +38,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.INCLUDE, "<div>\n" +
+            entry(GitLabYamlKeywords.INCLUDE, "<div>\n" +
                     "<code>include:local</code>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
@@ -94,7 +95,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.STAGES, "<div>\n" +
+            entry(GitLabYamlKeywords.STAGES, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">stages</span><span class=\"s1\">:</span>\n" +
@@ -104,7 +105,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.WORKFLOW, "<div>\n" +
+            entry(GitLabYamlKeywords.WORKFLOW, "<div>\n" +
                     "<code>workflow:rules</code>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
@@ -152,7 +153,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.AFTER_SCRIPT, "<div>\n" +
+            entry(GitLabYamlKeywords.AFTER_SCRIPT, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">job</span><span class=\"s1\">:</span>\n" +
@@ -163,7 +164,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.ALLOW_FAILURE, "<div>\n" +
+            entry(GitLabYamlKeywords.ALLOW_FAILURE, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">job1</span><span class=\"s1\">:</span>\n" +
@@ -205,7 +206,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.ARTIFACTS, "<div>\n" +
+            entry(GitLabYamlKeywords.ARTIFACTS, "<div>\n" +
                     "<code>artifacts:exclude</code>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
@@ -300,7 +301,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.BEFORE_SCRIPT, "<div>\n" +
+            entry(GitLabYamlKeywords.BEFORE_SCRIPT, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">job</span><span class=\"s1\">:</span>\n" +
@@ -311,7 +312,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.CACHE, "<div>\n" +
+            entry(GitLabYamlKeywords.CACHE, "<div>\n" +
                     "<code>cache:paths</code>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
@@ -428,7 +429,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.COVERAGE, "<div>\n" +
+            entry(GitLabYamlKeywords.COVERAGE, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">job1</span><span class=\"s1\">:</span>\n" +
@@ -437,7 +438,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.DAST_CONFIGURATION, "<div>\n" +
+            entry(GitLabYamlKeywords.DAST_CONFIGURATION, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">stages</span><span class=\"s1\">:</span>\n" +
@@ -454,7 +455,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.DEPENDENCIES, "<div>\n" +
+            entry(GitLabYamlKeywords.DEPENDENCIES, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">build osx</span><span class=\"s1\">:</span>\n" +
@@ -489,7 +490,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.ENVIRONMENT, "<div>\n" +
+            entry(GitLabYamlKeywords.ENVIRONMENT, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">deploy to production</span><span class=\"s1\">:</span>\n" +
@@ -572,7 +573,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.EXTENDS, "<div>\n" +
+            entry(GitLabYamlKeywords.EXTENDS, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">tests</span><span class=\"s1\">:</span>\n" +
@@ -601,7 +602,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.IMAGE, "<div>\n" +
+            entry(GitLabYamlKeywords.IMAGE, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">default</span><span class=\"s1\">:</span>\n" +
@@ -633,7 +634,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.INHERIT, "<div>\n" +
+            entry(GitLabYamlKeywords.INHERIT, "<div>\n" +
                     "<code>inherit:default</code>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
@@ -678,7 +679,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.INTERRUPTIBLE, "<div>\n" +
+            entry(GitLabYamlKeywords.INTERRUPTIBLE, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">stages</span><span class=\"s1\">:</span>\n" +
@@ -705,7 +706,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.NEEDS, "<div>\n" +
+            entry(GitLabYamlKeywords.NEEDS, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">linux</span><span class=\"s1\">:</span><span class=\"s2\">build</span><span class=\"s1\">:</span>\n" +
@@ -828,7 +829,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.ONLY, "<div>\n" +
+            entry(GitLabYamlKeywords.ONLY, "<div>\n" +
                     "<code>only:refs</code>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
@@ -886,7 +887,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.EXCEPT, "<div>\n" +
+            entry(GitLabYamlKeywords.EXCEPT, "<div>\n" +
                     "  <code>except:refs</code>\n" +
                     "<div class=\"code-block\">\n" +
                     "  <pre>\n" +
@@ -943,7 +944,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.PAGES, "<div>\n" +
+            entry(GitLabYamlKeywords.PAGES, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">pages</span><span class=\"s1\">:</span>\n" +
@@ -960,7 +961,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>\n"),
-            entry(GitlabYamlKeywords.PARALLEL, "<div>\n" +
+            entry(GitLabYamlKeywords.PARALLEL, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">test</span><span class=\"s1\">:</span>\n" +
@@ -1002,7 +1003,7 @@ public final class GitlabYamlDocumentationHTML {
                     "<span class=\"s2\">deploystacks</span><span class=\"s1\">: [</span><span class=\"s2\">vultr</span><span class=\"s1\">, </span><span class=\"s2\">data</span><span class=\"s1\">]</span>\n" +
                     "<span class=\"s2\">deploystacks</span><span class=\"s1\">: [</span><span class=\"s2\">vultr</span><span class=\"s1\">, </span><span class=\"s2\">processing</span><span class=\"s1\">]</span>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.RELEASE, "<div>\n" +
+            entry(GitLabYamlKeywords.RELEASE, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">release_job</span><span class=\"s1\">:</span>\n" +
@@ -1073,7 +1074,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>\n"),
-            entry(GitlabYamlKeywords.RESOURCE_GROUP, "<div>\n" +
+            entry(GitLabYamlKeywords.RESOURCE_GROUP, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">deploy-to-production</span><span class=\"s1\">:</span>\n" +
@@ -1082,7 +1083,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.RETRY, "<div>\n" +
+            entry(GitLabYamlKeywords.RETRY, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">test</span><span class=\"s1\">:</span>\n" +
@@ -1104,7 +1105,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.RULES, "<div>\n" +
+            entry(GitLabYamlKeywords.RULES, "<div>\n" +
                     "<code>rules:if</code>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
@@ -1176,7 +1177,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>\n"),
-            entry(GitlabYamlKeywords.SCRIPT, "<div>\n" +
+            entry(GitLabYamlKeywords.SCRIPT, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">job1</span><span class=\"s1\">:</span>\n" +
@@ -1190,7 +1191,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.SECRETS, "<div>\n" +
+            entry(GitLabYamlKeywords.SECRETS, "<div>\n" +
                     "<code>secrets:vault</code>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
@@ -1217,7 +1218,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.SERVICES, "<div>\n" +
+            entry(GitLabYamlKeywords.SERVICES, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">default</span><span class=\"s1\">:</span>\n" +
@@ -1240,7 +1241,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.STAGE, "<div>\n" +
+            entry(GitLabYamlKeywords.STAGE, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">stages</span><span class=\"s1\">:</span>\n" +
@@ -1317,7 +1318,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.TAGS, "<div>\n" +
+            entry(GitLabYamlKeywords.TAGS, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">job</span><span class=\"s1\">:</span>\n" +
@@ -1327,7 +1328,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.TIMEOUT, "<div>\n" +
+            entry(GitLabYamlKeywords.TIMEOUT, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">build</span><span class=\"s1\">:</span>\n" +
@@ -1340,7 +1341,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.TRIGGER, "<div>\n" +
+            entry(GitLabYamlKeywords.TRIGGER, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s0\"># trigger multi-project pipeline</span>\n" +
@@ -1402,7 +1403,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>"),
-            entry(GitlabYamlKeywords.VARIABLES, "<div>\n" +
+            entry(GitLabYamlKeywords.VARIABLES, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">variables</span><span class=\"s1\">:</span>\n" +
@@ -1432,7 +1433,7 @@ public final class GitlabYamlDocumentationHTML {
                     "</pre>\n" +
                     "</div>\n" +
                     "</div>\n"),
-            entry(GitlabYamlKeywords.WHEN, "<div>\n" +
+            entry(GitLabYamlKeywords.WHEN, "<div>\n" +
                     "<div class=\"code-block\">\n" +
                     "<pre>\n" +
                     "<span class=\"s2\">stages</span><span class=\"s1\">:</span>\n" +
@@ -1475,9 +1476,9 @@ public final class GitlabYamlDocumentationHTML {
     );
 
     public static final Map<String, String> keywordDefinitions = Map.ofEntries(
-            entry(GitlabYamlKeywords.DEFAULT,  "<p>You can set global defaults for some keywords. Jobs that do not define one or more\n" +
+            entry(GitLabYamlKeywords.DEFAULT,  "<p>You can set global defaults for some keywords. Jobs that do not define one or more\n" +
                     "of the listed keywords use the value defined in the <code class=highlighter-rouge>default</code> section."),
-            entry(GitlabYamlKeywords.INCLUDE,  "<p>Use <code class=highlighter-rouge>include</code> to include external YAML files in your CI/CD configuration.\n" +
+            entry(GitLabYamlKeywords.INCLUDE,  "<p>Use <code class=highlighter-rouge>include</code> to include external YAML files in your CI/CD configuration.\n" +
                     "\tYou can split one long <code class=highlighter-rouge>.gitlab-ci.yml</code> file into multiple files to increase\n" +
                     "\treadability,\n" +
                     "\tor reduce duplication of the same configuration in multiple places.\n" +
@@ -1494,7 +1495,7 @@ public final class GitlabYamlDocumentationHTML {
                     "\t\t\t\t\tcan be included multiple times in nested includes, but duplicates are ignored. <p>In <a\n" +
                     "\t\t\t\t\t\thref=https://gitlab.com/gitlab-org/gitlab/-/issues/28212>GitLab 12.4 and later</a>, the time\n" +
                     "\t\t\t\t\t\tlimit to resolve all files is 30 seconds."),
-            entry(GitlabYamlKeywords.STAGES,  "<p>Use <code class=highlighter-rouge>stages</code> to define stages that contain groups of jobs. Use <a href=https://docs.gitlab.com/ee/ci/yaml/#stage><code class=highlighter-rouge>stage</code></a>\n" +
+            entry(GitLabYamlKeywords.STAGES,  "<p>Use <code class=highlighter-rouge>stages</code> to define stages that contain groups of jobs. Use <a href=https://docs.gitlab.com/ee/ci/yaml/#stage><code class=highlighter-rouge>stage</code></a>\n" +
                     "in a job to configure the job to run in a specific stage.\n" +
                     "<p>If <code class=highlighter-rouge>stages</code> is not defined in the <code class=highlighter-rouge>.gitlab-ci.yml</code> file, the default pipeline stages are:\n" +
                     "<ul>\n" +
@@ -1509,7 +1510,7 @@ public final class GitlabYamlDocumentationHTML {
                     "<li>Jobs in the same stage run in parallel.\n" +
                     "<li>Jobs in the next stage run after the jobs from the previous stage complete successfully.\n" +
                     "</ul>"),
-            entry(GitlabYamlKeywords.WORKFLOW,  "<p>Use <a href=https://docs.gitlab.com/ee/ci/yaml/workflow.html><code class=highlighter-rouge>workflow</code></a> to control pipeline behavior.\n" +
+            entry(GitLabYamlKeywords.WORKFLOW,  "<p>Use <a href=https://docs.gitlab.com/ee/ci/yaml/workflow.html><code class=highlighter-rouge>workflow</code></a> to control pipeline behavior.\n" +
                     "<p><strong>Related topics</strong>:\n" +
                     "<ul>\n" +
                     "<li><a href=https://docs.gitlab.com/ee/ci/yaml/workflow.html#workflow-rules-examples><code class=highlighter-rouge>workflow: rules</code> examples</a>\n" +
@@ -1521,8 +1522,8 @@ public final class GitlabYamlDocumentationHTML {
                     "<p>The <code class=highlighter-rouge>rules</code> keyword in <code class=highlighter-rouge>workflow</code> is similar to <a href=https://docs.gitlab.com/ee/ci/yaml/#rules><code class=highlighter-rouge>rules</code> defined in jobs</a>,\n" +
                     "but controls whether or not a whole pipeline is created.\n" +
                     "<p>When no rules evaluate to true, the pipeline does not run."),
-            entry(GitlabYamlKeywords.AFTER_SCRIPT,  "<p>Use <code class=highlighter-rouge>after_script</code> to define an array of commands that run after each job, including failed jobs."),
-            entry(GitlabYamlKeywords.ALLOW_FAILURE,  "<p>Use <code class=highlighter-rouge>allow_failure</code> to determine whether a pipeline should continue running when a job fails.\n" +
+            entry(GitLabYamlKeywords.AFTER_SCRIPT,  "<p>Use <code class=highlighter-rouge>after_script</code> to define an array of commands that run after each job, including failed jobs."),
+            entry(GitLabYamlKeywords.ALLOW_FAILURE,  "<p>Use <code class=highlighter-rouge>allow_failure</code> to determine whether a pipeline should continue running when a job fails.\n" +
                     "<ul>\n" +
                     "<li>To let the pipeline continue running subsequent jobs, use <code class=highlighter-rouge>allow_failure: true</code>.\n" +
                     "<li>To stop the pipeline from running subsequent jobs, use <code class=highlighter-rouge>allow_failure: false</code>.\n" +
@@ -1544,7 +1545,7 @@ public final class GitlabYamlDocumentationHTML {
                     "<li>\n" +
                     "<code class=highlighter-rouge>false</code> in all other cases.\n" +
                     "</ul>"),
-            entry(GitlabYamlKeywords.ARTIFACTS,  "<p>Use <code class=highlighter-rouge>artifacts</code> to specify which files to save as <a href=https://docs.gitlab.com/ee/ci/yaml/../pipelines/job_artifacts.html>job artifacts</a>.\n" +
+            entry(GitLabYamlKeywords.ARTIFACTS,  "<p>Use <code class=highlighter-rouge>artifacts</code> to specify which files to save as <a href=https://docs.gitlab.com/ee/ci/yaml/../pipelines/job_artifacts.html>job artifacts</a>.\n" +
                     "Job artifacts are a list of files and directories that are\n" +
                     "attached to the job when it <a href=https://docs.gitlab.com/ee/ci/yaml/#artifactswhen>succeeds, fails, or always</a>.\n" +
                     "<p>The artifacts are sent to GitLab after the job finishes. They are\n" +
@@ -1558,45 +1559,45 @@ public final class GitlabYamlDocumentationHTML {
                     "<p>Job artifacts are only collected for successful jobs by default, and\n" +
                     "artifacts are restored after <a href=https://docs.gitlab.com/ee/ci/yaml/#cache>caches</a>.\n" +
                     "<p><a href=https://docs.gitlab.com/ee/ci/yaml/../pipelines/job_artifacts.html>Read more about artifacts</a>."),
-            entry(GitlabYamlKeywords.BEFORE_SCRIPT,  "<p>Use <code class=highlighter-rouge>before_script</code> to define an array of commands that should run before each job’s\n" +
+            entry(GitLabYamlKeywords.BEFORE_SCRIPT,  "<p>Use <code class=highlighter-rouge>before_script</code> to define an array of commands that should run before each job’s\n" +
                     "<code class=highlighter-rouge>script</code> commands, but after <a href=https://docs.gitlab.com/ee/ci/yaml/#artifacts>artifacts</a> are restored."),
-            entry(GitlabYamlKeywords.CACHE,  "<p>Use <code class=highlighter-rouge>cache</code> to specify a list of files and directories to\n" +
+            entry(GitLabYamlKeywords.CACHE,  "<p>Use <code class=highlighter-rouge>cache</code> to specify a list of files and directories to\n" +
                     "cache between jobs. You can only use paths that are in the local working copy.\n" +
                     "<p>Caching is shared between pipelines and jobs. Caches are restored before <a href=https://docs.gitlab.com/ee/ci/yaml/#artifacts>artifacts</a>.\n" +
                     "<p>Learn more about caches in <a href=https://docs.gitlab.com/ee/ci/yaml/../caching/index.html>Caching in GitLab CI/CD</a>."),
-            entry(GitlabYamlKeywords.COVERAGE,  "<p>Use <code class=highlighter-rouge>coverage</code> with a custom regular expression to configure how code coverage\n" +
+            entry(GitLabYamlKeywords.COVERAGE,  "<p>Use <code class=highlighter-rouge>coverage</code> with a custom regular expression to configure how code coverage\n" +
                     "is extracted from the job output. The coverage is shown in the UI if at least one\n" +
                     "line in the job output matches the regular expression.\n" +
                     "<p>To extract the code coverage value from the match, GitLab uses\n" +
                     "this smaller regular expression: <code class=highlighter-rouge>\\d+(\\.\\d+)?</code>.\n" +
                     "<p><strong>Possible inputs</strong>:"),
-            entry(GitlabYamlKeywords.DAST_CONFIGURATION,  "<p>Use the <code class=highlighter-rouge>dast_configuration</code> keyword to specify a site profile and scanner profile to be used in a\n" +
+            entry(GitLabYamlKeywords.DAST_CONFIGURATION,  "<p>Use the <code class=highlighter-rouge>dast_configuration</code> keyword to specify a site profile and scanner profile to be used in a\n" +
                     "CI/CD configuration. Both profiles must first have been created in the project. The job’s stage must\n" +
                     "be <code class=highlighter-rouge>dast</code>."),
-            entry(GitlabYamlKeywords.DEPENDENCIES,  "<p>Use the <code class=highlighter-rouge>dependencies</code> keyword to define a list of jobs to fetch <a href=https://docs.gitlab.com/ee/ci/yaml/#artifacts>artifacts</a> from.\n" +
+            entry(GitLabYamlKeywords.DEPENDENCIES,  "<p>Use the <code class=highlighter-rouge>dependencies</code> keyword to define a list of jobs to fetch <a href=https://docs.gitlab.com/ee/ci/yaml/#artifacts>artifacts</a> from.\n" +
                     "You can also set a job to download no artifacts at all.\n" +
                     "<p>If you do not use <code class=highlighter-rouge>dependencies</code>, all artifacts from previous stages are passed to each job."),
-            entry(GitlabYamlKeywords.ENVIRONMENT,  "<p>Use <code class=highlighter-rouge>environment</code> to define the <a href=https://docs.gitlab.com/ee/ci/yaml/../environments/index.html>environment</a> that a job deploys to."),
-            entry(GitlabYamlKeywords.EXTENDS,  "<p>Use <code class=highlighter-rouge>extends</code> to reuse configuration sections. It’s an alternative to <a href=https://docs.gitlab.com/ee/ci/yaml/yaml_optimization.html#anchors>YAML anchors</a>\n" +
+            entry(GitLabYamlKeywords.ENVIRONMENT,  "<p>Use <code class=highlighter-rouge>environment</code> to define the <a href=https://docs.gitlab.com/ee/ci/yaml/../environments/index.html>environment</a> that a job deploys to."),
+            entry(GitLabYamlKeywords.EXTENDS,  "<p>Use <code class=highlighter-rouge>extends</code> to reuse configuration sections. It’s an alternative to <a href=https://docs.gitlab.com/ee/ci/yaml/yaml_optimization.html#anchors>YAML anchors</a>\n" +
                     "and is a little more flexible and readable."),
-            entry(GitlabYamlKeywords.IMAGE,  "<p>Use <code class=highlighter-rouge>image</code> to specify a Docker image that the job runs in.\n" +
+            entry(GitLabYamlKeywords.IMAGE,  "<p>Use <code class=highlighter-rouge>image</code> to specify a Docker image that the job runs in.\n" +
                     "<p><strong>Keyword type</strong>: Job keyword. You can use it only as part of a job or in the\n" +
                     "<a href=https://docs.gitlab.com/ee/ci/yaml/#default><code class=highlighter-rouge>default</code> section</a>."),
-            entry(GitlabYamlKeywords.INHERIT,  "<p>Use <code class=highlighter-rouge>inherit</code> to <a href=https://docs.gitlab.com/ee/ci/yaml/../jobs/index.html#control-the-inheritance-of-default-keywords-and-global-variables>control inheritance of default keywords and variables</a>.\n" +
+            entry(GitLabYamlKeywords.INHERIT,  "<p>Use <code class=highlighter-rouge>inherit</code> to <a href=https://docs.gitlab.com/ee/ci/yaml/../jobs/index.html#control-the-inheritance-of-default-keywords-and-global-variables>control inheritance of default keywords and variables</a>.\n" +
                     "<h4 id=inheritdefault>\n" +
                     "<code class=highlighter-rouge>inherit:default</code><a href=https://docs.gitlab.com/ee/ci/yaml/#inheritdefault title=Permalink class=anchor></a>\n" +
                     "</h4>\n" +
                     "<p>Use <code class=highlighter-rouge>inherit:default</code> to control the inheritance of <a href=https://docs.gitlab.com/ee/ci/yaml/#default>default keywords</a>."),
-            entry(GitlabYamlKeywords.INTERRUPTIBLE,  "<p>Use <code class=highlighter-rouge>interruptible</code> if a job should be canceled when a newer pipeline starts before the job completes.\n" +
+            entry(GitLabYamlKeywords.INTERRUPTIBLE,  "<p>Use <code class=highlighter-rouge>interruptible</code> if a job should be canceled when a newer pipeline starts before the job completes.\n" +
                     "<p>This keyword is used with the <a href=https://docs.gitlab.com/ee/ci/yaml/../pipelines/settings.html#auto-cancel-redundant-pipelines>automatic cancellation of redundant pipelines</a>\n" +
                     "feature. When enabled, a running job with <code class=highlighter-rouge>interruptible: true</code> can be cancelled when\n" +
                     "a new pipeline starts on the same branch.\n" +
                     "<p>You can’t cancel subsequent jobs after a job with <code class=highlighter-rouge>interruptible: false</code> starts."),
-            entry(GitlabYamlKeywords.NEEDS,  "<p>Use <code class=highlighter-rouge>needs</code> to execute jobs out-of-order. Relationships between jobs\n" +
+            entry(GitLabYamlKeywords.NEEDS,  "<p>Use <code class=highlighter-rouge>needs</code> to execute jobs out-of-order. Relationships between jobs\n" +
                     "that use <code class=highlighter-rouge>needs</code> can be visualized as a <a href=https://docs.gitlab.com/ee/ci/yaml/../directed_acyclic_graph/index.html>directed acyclic graph</a>.\n" +
                     "<p>You can ignore stage ordering and run some jobs without waiting for others to complete.\n" +
                     "Jobs in multiple stages can run concurrently."),
-            entry(GitlabYamlKeywords.ONLY,  "<code class=highlighter-rouge>only</code> and <code class=highlighter-rouge>except</code> are not being actively\n" +
+            entry(GitLabYamlKeywords.ONLY,  "<code class=highlighter-rouge>only</code> and <code class=highlighter-rouge>except</code> are not being actively\n" +
                     "developed. <a href=https://docs.gitlab.com/ee/ci/yaml/#rules><code class=highlighter-rouge>rules</code></a> is the preferred\n" +
                     "keyword to control when to add jobs to pipelines." +
                     "<p>You can use <code class=highlighter-rouge>only</code> and <code class=highlighter-rouge>except</code> to control when\n" +
@@ -1605,7 +1606,7 @@ public final class GitlabYamlDocumentationHTML {
                     "\t\t<li>Use <code class=highlighter-rouge>only</code> to define when a job runs.\n" +
                     "\t\t<li>Use <code class=highlighter-rouge>except</code> to define when a job <strong>does not</strong> run.\n" +
                     "\t</ul>"),
-            entry(GitlabYamlKeywords.EXCEPT,  "<code class=highlighter-rouge>only</code> and <code class=highlighter-rouge>except</code> are not being actively\n" +
+            entry(GitLabYamlKeywords.EXCEPT,  "<code class=highlighter-rouge>only</code> and <code class=highlighter-rouge>except</code> are not being actively\n" +
                     "developed. <a href=https://docs.gitlab.com/ee/ci/yaml/#rules><code class=highlighter-rouge>rules</code></a> is the preferred\n" +
                     "keyword to control when to add jobs to pipelines." +
                     "<p>You can use <code class=highlighter-rouge>only</code> and <code class=highlighter-rouge>except</code> to control when\n" +
@@ -1614,17 +1615,17 @@ public final class GitlabYamlDocumentationHTML {
                     "\t\t<li>Use <code class=highlighter-rouge>only</code> to define when a job runs.\n" +
                     "\t\t<li>Use <code class=highlighter-rouge>except</code> to define when a job <strong>does not</strong> run.\n" +
                     "\t</ul>"),
-            entry(GitlabYamlKeywords.PAGES,  "<p>Use <code class=highlighter-rouge>pages</code> to define a <a href=https://docs.gitlab.com/ee/ci/yaml/../../user/project/pages/index.html>GitLab Pages</a> job that\n" +
+            entry(GitLabYamlKeywords.PAGES,  "<p>Use <code class=highlighter-rouge>pages</code> to define a <a href=https://docs.gitlab.com/ee/ci/yaml/../../user/project/pages/index.html>GitLab Pages</a> job that\n" +
                     "uploads static content to GitLab. The content is then published as a website."),
-            entry(GitlabYamlKeywords.PARALLEL,  "<p>Use <code class=highlighter-rouge>parallel</code> to run a job multiple times in parallel in a single pipeline.\n" +
+            entry(GitLabYamlKeywords.PARALLEL,  "<p>Use <code class=highlighter-rouge>parallel</code> to run a job multiple times in parallel in a single pipeline.\n" +
                     "<p>Multiple runners must exist, or a single runner must be configured to run multiple jobs concurrently.\n" +
                     "<p>Parallel jobs are named sequentially from <code class=highlighter-rouge>job_name 1/N</code> to <code class=highlighter-rouge>job_name N/N</code>."),
-            entry(GitlabYamlKeywords.RELEASE,  "<p>Use <code class=highlighter-rouge>release</code> to create a <a href=https://docs.gitlab.com/ee/ci/yaml/../../user/project/releases/index.html>release</a>.\n" +
+            entry(GitLabYamlKeywords.RELEASE,  "<p>Use <code class=highlighter-rouge>release</code> to create a <a href=https://docs.gitlab.com/ee/ci/yaml/../../user/project/releases/index.html>release</a>.\n" +
                     "<p>The release job must have access to the <a href=https://gitlab.com/gitlab-org/release-cli/-/tree/master/docs><code class=highlighter-rouge>release-cli</code></a>,\n" +
                     "which must be in the <code class=highlighter-rouge>$PATH</code>.\n" +
                     "<p>If you use the <a href=https://docs.gitlab.com/runner/executors/docker.html>Docker executor</a>,\n" +
                     "you can use this image from the GitLab Container Registry: <code class=highlighter-rouge>registry.gitlab.com/gitlab-org/release-cli:latest</code>"),
-            entry(GitlabYamlKeywords.RESOURCE_GROUP,  "<p>Use <code class=highlighter-rouge>resource_group</code> to create a <a href=https://docs.gitlab.com/ee/ci/yaml/../resource_groups/index.html>resource group</a> that\n" +
+            entry(GitLabYamlKeywords.RESOURCE_GROUP,  "<p>Use <code class=highlighter-rouge>resource_group</code> to create a <a href=https://docs.gitlab.com/ee/ci/yaml/../resource_groups/index.html>resource group</a> that\n" +
                     "ensures a job is mutually exclusive across different pipelines for the same project.\n" +
                     "<p>For example, if multiple jobs that belong to the same resource group are queued simultaneously,\n" +
                     "only one of the jobs starts. The other jobs wait until the <code class=highlighter-rouge>resource_group</code> is free.\n" +
@@ -1633,13 +1634,13 @@ public final class GitlabYamlDocumentationHTML {
                     "when deploying to physical devices, you might have multiple physical devices. Each device\n" +
                     "can be deployed to, but only one deployment can occur per device at any given time.\n" +
                     "<p><strong>Keyword type</strong>: Job keyword. You can use it only as part of a job."),
-            entry(GitlabYamlKeywords.RETRY,  "<p>Use <code class=highlighter-rouge>retry</code> to configure how many times a job is retried if it fails.\n" +
+            entry(GitLabYamlKeywords.RETRY,  "<p>Use <code class=highlighter-rouge>retry</code> to configure how many times a job is retried if it fails.\n" +
                     "If not defined, defaults to <code class=highlighter-rouge>0</code> and jobs do not retry.\n" +
                     "<p>When a job fails, the job is processed up to two more times, until it succeeds or\n" +
                     "reaches the maximum number of retries.\n" +
                     "<p>By default, all failure types cause the job to be retried. Use <a href=https://docs.gitlab.com/ee/ci/yaml/#retrywhen><code class=highlighter-rouge>retry:when</code></a>\n" +
                     "to select which failures to retry on."),
-            entry(GitlabYamlKeywords.RULES,  "<p>Use <code class=highlighter-rouge>rules</code> to include or exclude jobs in pipelines.\n" +
+            entry(GitLabYamlKeywords.RULES,  "<p>Use <code class=highlighter-rouge>rules</code> to include or exclude jobs in pipelines.\n" +
                     "<p>Rules are evaluated when the pipeline is created, and evaluated <em>in order</em>\n" +
                     "until the first match. When a match is found, the job is either included or excluded from the pipeline,\n" +
                     "depending on the configuration.\n" +
@@ -1670,37 +1671,37 @@ public final class GitlabYamlDocumentationHTML {
                     "</ul>\n" +
                     "<p>You can use <a href=https://docs.gitlab.com/ee/ci/yaml/yaml_optimization.html#reference-tags><code class=highlighter-rouge>!reference</code> tags</a> to <a href=https://docs.gitlab.com/ee/ci/yaml/../jobs/job_control.html#reuse-rules-in-different-jobs>reuse <code class=highlighter-rouge>rules</code> configuration</a>\n" +
                     "in different jobs."),
-            entry(GitlabYamlKeywords.SCRIPT,  "<p>Use <code class=highlighter-rouge>script</code> to specify commands for the runner to execute.\n" +
+            entry(GitLabYamlKeywords.SCRIPT,  "<p>Use <code class=highlighter-rouge>script</code> to specify commands for the runner to execute.\n" +
                     "<p>All jobs except <a href=https://docs.gitlab.com/ee/ci/yaml/#trigger>trigger jobs</a> require a <code class=highlighter-rouge>script</code> keyword."),
-            entry(GitlabYamlKeywords.SECRETS,  "<p>Use <code class=highlighter-rouge>secrets</code> to specify <a href=https://docs.gitlab.com/ee/ci/yaml/../secrets/index.html>CI/CD secrets</a> to: <ul>\n" +
+            entry(GitLabYamlKeywords.SECRETS,  "<p>Use <code class=highlighter-rouge>secrets</code> to specify <a href=https://docs.gitlab.com/ee/ci/yaml/../secrets/index.html>CI/CD secrets</a> to: <ul>\n" +
                     "\t\t<li>Retrieve from an external secrets provider.\n" +
                     "\t\t<li>Make available in the job as <a href=https://docs.gitlab.com/ee/ci/yaml/../variables/index.html>CI/CD variables</a> (<a\n" +
                     "\t\t\t\thref=https://docs.gitlab.com/ee/ci/yaml/../variables/index.html#cicd-variable-types> <code class=highlighter-rouge>file</code> type</a> by\n" +
                     "\tdefault).\n" +
                     "\t</ul>\n" +
                     "\t<p>This keyword must be used with <code class=highlighter-rouge>secrets:vault</code>."),
-            entry(GitlabYamlKeywords.SERVICES,  "<p>Use <code class=highlighter-rouge>services</code> to specify an additional Docker image to run scripts in. The <a href=https://docs.gitlab.com/ee/ci/yaml/../services/index.html><code class=highlighter-rouge>services</code> image</a> is linked\n" +
+            entry(GitLabYamlKeywords.SERVICES,  "<p>Use <code class=highlighter-rouge>services</code> to specify an additional Docker image to run scripts in. The <a href=https://docs.gitlab.com/ee/ci/yaml/../services/index.html><code class=highlighter-rouge>services</code> image</a> is linked\n" +
                     "to the image specified in the <a href=https://docs.gitlab.com/ee/ci/yaml/#image><code class=highlighter-rouge>image</code></a> keyword."),
-            entry(GitlabYamlKeywords.STAGE,  "<p>Use <code class=highlighter-rouge>stage</code> to define which <a href=https://docs.gitlab.com/ee/ci/yaml/#stages>stage</a> a job runs in. Jobs in the same\n" +
+            entry(GitLabYamlKeywords.STAGE,  "<p>Use <code class=highlighter-rouge>stage</code> to define which <a href=https://docs.gitlab.com/ee/ci/yaml/#stages>stage</a> a job runs in. Jobs in the same\n" +
                     "<code class=highlighter-rouge>stage</code> can execute in parallel (see <strong>Additional details</strong>).\n" +
                     "<p>If <code class=highlighter-rouge>stage</code> is not defined, the job uses the <code class=highlighter-rouge>test</code> stage by default."),
-            entry(GitlabYamlKeywords.TAGS,  "<p>Use <code class=highlighter-rouge>tags</code> to select a specific runner from the list of all runners that are\n" +
+            entry(GitLabYamlKeywords.TAGS,  "<p>Use <code class=highlighter-rouge>tags</code> to select a specific runner from the list of all runners that are\n" +
                     "available for the project.\n" +
                     "<p>When you register a runner, you can specify the runner’s tags, for\n" +
                     "example <code class=highlighter-rouge>ruby</code>, <code class=highlighter-rouge>postgres</code>, or <code class=highlighter-rouge>development</code>. To pick up and run a job, a runner must\n" +
                     "be assigned every tag listed in the job."),
-            entry(GitlabYamlKeywords.TIMEOUT,  "<p>Use <code class=highlighter-rouge>timeout</code> to configure a timeout for a specific job. If the job runs for longer\n" +
+            entry(GitLabYamlKeywords.TIMEOUT,  "<p>Use <code class=highlighter-rouge>timeout</code> to configure a timeout for a specific job. If the job runs for longer\n" +
                     "than the timeout, the job fails.\n" +
                     "<p>The job-level timeout can be longer than the <a href=https://docs.gitlab.com/ee/ci/yaml/../pipelines/settings.html#set-a-limit-for-how-long-jobs-can-run>project-level timeout</a>.\n" +
                     "but can’t be longer than the <a href=https://docs.gitlab.com/ee/ci/yaml/../runners/configure_runners.html#set-maximum-job-timeout-for-a-runner>runner’s timeout</a>."),
-            entry(GitlabYamlKeywords.TRIGGER,  "<p>Use <code class=highlighter-rouge>trigger</code> to start a downstream pipeline that is either:\n" +
+            entry(GitLabYamlKeywords.TRIGGER,  "<p>Use <code class=highlighter-rouge>trigger</code> to start a downstream pipeline that is either:\n" +
                     "<ul>\n" +
                     "<li>\n" +
                     "<a href=https://docs.gitlab.com/ee/ci/yaml/../pipelines/multi_project_pipelines.html>A multi-project pipeline</a>.\n" +
                     "<li>\n" +
                     "<a href=https://docs.gitlab.com/ee/ci/yaml/../pipelines/parent_child_pipelines.html>A child pipeline</a>.\n" +
                     "</ul>"),
-            entry(GitlabYamlKeywords.VARIABLES,  "<p><a href=https://docs.gitlab.com/ee/ci/yaml/../variables/index.html>CI/CD variables</a> are configurable values that are passed to jobs.\n" +
+            entry(GitLabYamlKeywords.VARIABLES,  "<p><a href=https://docs.gitlab.com/ee/ci/yaml/../variables/index.html>CI/CD variables</a> are configurable values that are passed to jobs.\n" +
                     "Use <code class=highlighter-rouge>variables</code> to create <a href=https://docs.gitlab.com/ee/ci/yaml/../variables/index.html#custom-cicd-variables>custom variables</a>.\n" +
                     "<p>Variables are always available in <code class=highlighter-rouge>script</code>, <code class=highlighter-rouge>before_script</code>, and <code class=highlighter-rouge>after_script</code> commands.\n" +
                     "You can also use variables as inputs in some job keywords.\n" +
@@ -1709,7 +1710,7 @@ public final class GitlabYamlDocumentationHTML {
                     "<p>If you define <code class=highlighter-rouge>variables</code> at the global level, each variable is copied to\n" +
                     "every job configuration when the pipeline is created. If the job already has that\n" +
                     "variable defined, the <a href=https://docs.gitlab.com/ee/ci/yaml/../variables/index.html#cicd-variable-precedence>job-level variable takes precedence</a>."),
-            entry(GitlabYamlKeywords.WHEN, "<p>Use <code class=highlighter-rouge>when</code> to configure the conditions for when jobs run. If not defined in a job,\n" +
+            entry(GitLabYamlKeywords.WHEN, "<p>Use <code class=highlighter-rouge>when</code> to configure the conditions for when jobs run. If not defined in a job,\n" +
                     "the default value is <code class=highlighter-rouge>when: on_success</code>.")
     );
 }

@@ -1,9 +1,9 @@
 package com.gitlabci.plugin.services;
 
-import com.gitlabci.plugin.language.GitlabYamlBundle;
+import com.gitlabci.plugin.language.GitLabYamlBundle;
 
-public class GitlabCIApplicationService {
-    GitlabCIApplicationService() {
-        System.out.println(GitlabYamlBundle.message("applicationService"));
+public class GitLabCIApplicationService {
+    GitLabCIApplicationService() {
+        System.out.println(GitLabYamlBundle.message("applicationService"));
     }
 }

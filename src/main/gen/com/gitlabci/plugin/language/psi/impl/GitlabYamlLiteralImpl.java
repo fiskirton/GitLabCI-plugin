@@ -7,23 +7,23 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import static com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes.*;
+import static com.gitlabci.plugin.language.psi.GitLabYamlTokenTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.gitlabci.plugin.language.psi.*;
 
-public class GitlabYamlLiteralImpl extends ASTWrapperPsiElement implements GitlabYamlLiteral {
+public class GitLabYamlLiteralImpl extends ASTWrapperPsiElement implements GitLabYamlLiteral {
 
-  public GitlabYamlLiteralImpl(@NotNull ASTNode node) {
+  public GitLabYamlLiteralImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  public void accept(@NotNull GitlabYamlVisitor visitor) {
+  public void accept(@NotNull GitLabYamlVisitor visitor) {
     visitor.visitLiteral(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof GitlabYamlVisitor) accept((GitlabYamlVisitor)visitor);
+    if (visitor instanceof GitLabYamlVisitor) accept((GitLabYamlVisitor)visitor);
     else super.accept(visitor);
   }
 

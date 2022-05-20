@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NonNls;
 
 import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAttributesKey;
 
-public final class GitlabYamlHighlighter {
+public final class GitLabYamlHighlighter {
     @NonNls
     static final String STRING_ID = "STRING";
     @NonNls

@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface GitlabYamlArray extends PsiElement {
+public interface GitLabYamlArray extends PsiElement {
 
   @NotNull
-  List<GitlabYamlLiteral> getLiteralList();
+  List<GitLabYamlLiteral> getLiteralList();
 
 }

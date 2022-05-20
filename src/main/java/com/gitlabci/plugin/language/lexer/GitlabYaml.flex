@@ -1,14 +1,14 @@
 package com.gitlabci.plugin.language.lexer;
 
+import com.gitlabci.plugin.language.psi.GitLabYamlTokenTypes;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.TokenType;
 import java.util.Stack;
-import com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes;
 import com.intellij.lexer.FlexLexer;
 
 %%
 
-%class GitlabYamlLexer
+%class GitLabYamlLexer
 %implements FlexLexer
 %unicode
 %function advance
@@ -84,7 +84,7 @@ non_blank = [^ \t\r\n#]
 // Comments
 comment = {hash}[^\n\r]*
 
-%state IN_BLOCK STR IN_SEQUENCE IN_VALUE IN_UNQUOTED_STRING
+%state IN_BLOCK STR IN_SEQUENCE IN_VALUE IN_UNQUOTED_STRING IN_COLON_SEPRATED_VALUE
 
 %%
 
@@ -93,19 +93,19 @@ comment = {hash}[^\n\r]*
           currIndent++;
       }
       {eol} {sequenceShift = 0; currIndent = 0;}
-      {comment} { return GitlabYamlTokenTypes.COMMENT; }
+      {comment} { return GitLabYamlTokenTypes.COMMENT; }
 
       {non_blank} {
           yypushback(1);
           if((peek() > currIndent - sequenceShift) && (peek() > currIndent)) {
             pop();
             sequenceShift = 0;
-            return GitlabYamlTokenTypes.DEDENT;
+            return GitLabYamlTokenTypes.DEDENT;
           }
           yybegin(IN_BLOCK);
           if((peek() < currIndent - sequenceShift) && (peek() < currIndent)) {
             indents.push(currIndent - sequenceShift);
-            return GitlabYamlTokenTypes.INDENT;
+            return GitLabYamlTokenTypes.INDENT;
           }
       }
 
@@ -118,31 +118,34 @@ comment = {hash}[^\n\r]*
               yybegin(IN_SEQUENCE);
     }
 
-    {dash} {yybegin(IN_VALUE); return GitlabYamlTokenTypes.DASH;}
-    {colon} {yybegin(IN_VALUE); return GitlabYamlTokenTypes.COLON;}
-    {comma} {return GitlabYamlTokenTypes.COMMA;}
-    {lbracket} {return GitlabYamlTokenTypes.LBRACKET;}
-    {rbracket} {return GitlabYamlTokenTypes.RBRACKET;}
-    {intLtr} {return GitlabYamlTokenTypes.INT;}
-    {stringLtr} {return GitlabYamlTokenTypes.STRING;}
+    {dash} {whiteSpace} {identifier} {colon} {identifier} {yypushback(yylength()); yybegin(IN_COLON_SEPRATED_VALUE);}
+
+    {dash} {yybegin(IN_VALUE); return GitLabYamlTokenTypes.DASH;}
+
+    {colon} {yybegin(IN_VALUE); return GitLabYamlTokenTypes.COLON;}
+    {comma} {return GitLabYamlTokenTypes.COMMA;}
+    {lbracket} {return GitLabYamlTokenTypes.LBRACKET;}
+    {rbracket} {return GitLabYamlTokenTypes.RBRACKET;}
+    {intLtr} {return GitLabYamlTokenTypes.INT;}
+    {stringLtr} {return GitLabYamlTokenTypes.STRING;}
 
     {eol} {
       yybegin(YYINITIAL);
       currIndent = 0;
-      return GitlabYamlTokenTypes.EOL;
+      return GitLabYamlTokenTypes.EOL;
     }
-    {identifier} {return GitlabYamlTokenTypes.ID;}
+    {identifier} {return GitLabYamlTokenTypes.ID;}
     {whiteSpace} {return TokenType.WHITE_SPACE;}
-    {comment} { return GitlabYamlTokenTypes.COMMENT; }
+    {comment} { return GitLabYamlTokenTypes.COMMENT; }
 }
 
 <IN_SEQUENCE> {
-    {dash} {sequenceShift++; return GitlabYamlTokenTypes.DASH;}
+    {dash} {sequenceShift++; return GitLabYamlTokenTypes.DASH;}
     {colon} {
           yypushback(yylength());
           yybegin(IN_BLOCK);
       }
-    {identifier} {return GitlabYamlTokenTypes.ID;}
+    {identifier} {return GitLabYamlTokenTypes.ID;}
     {whiteSpace} {sequenceShift++; return TokenType.WHITE_SPACE;}
 }
 
@@ -153,9 +156,18 @@ comment = {hash}[^\n\r]*
 }
 
 <IN_UNQUOTED_STRING> {
-    {intLtr}+ {return GitlabYamlTokenTypes.INT;}
-    [^\r\n#]+ {return GitlabYamlTokenTypes.STRING;}
+    {intLtr}+ {return GitLabYamlTokenTypes.INT;}
+    [^\r\n#]+ {return GitLabYamlTokenTypes.STRING;}
+    {comment} {return GitLabYamlTokenTypes.COMMENT;}
     {eol} {yypushback(yylength()); yybegin(IN_BLOCK);}
 }
 
-[^] {return GitlabYamlTokenTypes.UNKNOWN;}
+<IN_COLON_SEPRATED_VALUE> {
+    {dash} {return GitLabYamlTokenTypes.DASH;}
+    {whiteSpace} {return TokenType.WHITE_SPACE;}
+    {identifier} {colon} {identifier} {return GitLabYamlTokenTypes.STRING;}
+    {comment} {return GitLabYamlTokenTypes.COMMENT;}
+    {eol} {yypushback(yylength()); yybegin(IN_BLOCK);}
+}
+
+[^] {return GitLabYamlTokenTypes.UNKNOWN;}

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import static java.util.Map.entry;
 
-public final class GitlabYamlKeywords {
+public final class GitLabYamlKeywords {
     public static final String DEFAULT = "default";
     public static final String INCLUDE = "include";
     public static final String LOCAL = "local";

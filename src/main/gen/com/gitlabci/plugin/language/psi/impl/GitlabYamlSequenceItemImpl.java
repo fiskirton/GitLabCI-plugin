@@ -7,42 +7,36 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import static com.gitlabci.plugin.language.psi.GitlabYamlTokenTypes.*;
+import static com.gitlabci.plugin.language.psi.GitLabYamlTokenTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.gitlabci.plugin.language.psi.*;
 
-public class GitlabYamlSequenceItemImpl extends ASTWrapperPsiElement implements GitlabYamlSequenceItem {
+public class GitLabYamlSequenceItemImpl extends ASTWrapperPsiElement implements GitLabYamlSequenceItem {
 
-  public GitlabYamlSequenceItemImpl(@NotNull ASTNode node) {
+  public GitLabYamlSequenceItemImpl(@NotNull ASTNode node) {
     super(node);
   }
 
-  public void accept(@NotNull GitlabYamlVisitor visitor) {
+  public void accept(@NotNull GitLabYamlVisitor visitor) {
     visitor.visitSequenceItem(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof GitlabYamlVisitor) accept((GitlabYamlVisitor)visitor);
+    if (visitor instanceof GitLabYamlVisitor) accept((GitLabYamlVisitor)visitor);
     else super.accept(visitor);
   }
 
   @Override
   @Nullable
-  public GitlabYamlLiteral getLiteral() {
-    return findChildByClass(GitlabYamlLiteral.class);
+  public GitLabYamlLiteral getLiteral() {
+    return findChildByClass(GitLabYamlLiteral.class);
   }
 
   @Override
   @Nullable
-  public GitlabYamlMapping getMapping() {
-    return findChildByClass(GitlabYamlMapping.class);
-  }
-
-  @Override
-  @Nullable
-  public GitlabYamlUnquotedString getUnquotedString() {
-    return findChildByClass(GitlabYamlUnquotedString.class);
+  public GitLabYamlMapping getMapping() {
+    return findChildByClass(GitLabYamlMapping.class);
   }
 
 }

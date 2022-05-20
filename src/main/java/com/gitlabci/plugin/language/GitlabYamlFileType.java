@@ -1,30 +1,30 @@
 package com.gitlabci.plugin.language;
 
-import icons.GitlabYamlPluginIcons;
 import com.intellij.openapi.fileTypes.LanguageFileType;
+import icons.GitLabYamlPluginIcons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.Icon;
+import javax.swing.*;
 
-public class GitlabYamlFileType extends LanguageFileType {
+public class GitLabYamlFileType extends LanguageFileType {
 
-    public static final GitlabYamlFileType INSTANCE = new GitlabYamlFileType();
+    public static final GitLabYamlFileType INSTANCE = new GitLabYamlFileType();
 
-    private GitlabYamlFileType() {
-        super(GitlabYamlLanguage.INSTANCE);
+    private GitLabYamlFileType() {
+        super(GitLabYamlLanguage.INSTANCE);
     }
 
     @NotNull
     @Override
     public String getName() {
-        return "Gitlab YAML File";
+        return "GitLab YAML File";
     }
 
     @NotNull
     @Override
     public String getDescription() {
-        return "Gitlab YAML File";
+        return "GitLab YAML File";
     }
 
     @NotNull
@@ -36,7 +36,7 @@ public class GitlabYamlFileType extends LanguageFileType {
     @Nullable
     @Override
     public Icon getIcon() {
-        return GitlabYamlPluginIcons.GitlabYamlIcon;
+        return GitLabYamlPluginIcons.GitLabYamlIcon;
     }
 
 }

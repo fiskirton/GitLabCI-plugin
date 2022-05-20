@@ -4,7 +4,6 @@ import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.ActionToolbar;
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
-import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.table.JBTable;
@@ -14,16 +13,16 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
-public class GitlabCIPanel extends SimpleToolWindowPanel {
+public class GitLabCIPanel extends SimpleToolWindowPanel {
 
-    private static final GitlabCIPanel INSTANCE = new GitlabCIPanel();
+    private static final GitLabCIPanel INSTANCE = new GitLabCIPanel();
     private final JPanel mainPanel;
     private final JBScrollPane previewPanelScroll;
     private final JBScrollPane propertiesPanelScroll;
     private final JPanel previewPanel;
     private JBTable propertiesTable;
 
-    GitlabCIPanel() {
+    GitLabCIPanel() {
         super(true, false);
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(0, 1));
@@ -80,7 +79,7 @@ public class GitlabCIPanel extends SimpleToolWindowPanel {
         return propertiesTable;
     }
 
-    public static GitlabCIPanel getInstance() {
+    public static GitLabCIPanel getInstance() {
         return INSTANCE;
     }
 }
