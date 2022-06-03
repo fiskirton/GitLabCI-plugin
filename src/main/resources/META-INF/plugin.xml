@@ -1,12 +1,20 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.gitlabci.plugin</id>
+
     <name>GitLabCI</name>
-    <vendor>https://github.com/fiskirton</vendor>
+    <vendor
+        url="https://github.com/fiskirton"
+        email="sodaeffect977@gmail.com">fiskirton</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <completion.contributor
+                language="GitLabYaml"
+                order="first"
+                implementationClass="com.gitlabci.plugin.language.completion.GitLabYamlCompletionContributor"/>
+
         <applicationService serviceImplementation="com.gitlabci.plugin.services.GitLabCIApplicationService"/>
         <projectService serviceImplementation="com.gitlabci.plugin.services.GitLabCIProjectService"/>
         <toolWindow id="GitLabCI" secondary="false" icon="GitLabYamlPluginIcons.GitLabYamlIcon" anchor="right"
@@ -16,7 +24,7 @@
                   fieldName="INSTANCE"
                   language="GitLabYaml"
                   extensions="gitlab-ci.yml"
-                  patterns="*.gitlab-ci*"
+                  patterns="*.gitlab-ci*.yml;*.gitlab-ci*.yaml"
         />
         <lang.parserDefinition
             language="GitLabYaml"
